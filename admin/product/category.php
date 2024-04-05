@@ -55,37 +55,36 @@ while ($row = $result->fetch_object()) {
 
   });
 
-  /*
   async function makeOption(e, step, category, target) {
     let cate = e.val();
-    let data = {
+    let data = new URLSearchParams({
       cate: cate,
       step: step,
       category: category
-    };
-    console.log(data);
+    });
 
     try {
       const response = await fetch('printOption.php', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(data)
-        })
-        .then(res => {
-          return res;
-        })
-        .then(result => {
-          console.log(result);
-        });
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: data
+      });
 
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const resultText = await response.text();
+
+      target.html(resultText);
     } catch (error) {
       console.error('Error:', error);
     }
   }
-  */
 
+  /*
   function makeOption(e, step, category, target) {
     let cate = e.val();
     //console.log(cate);
@@ -108,6 +107,7 @@ while ($row = $result->fetch_object()) {
       }
     })
   }
+  */
 </script>
 <?php
 include_once $_SERVER['DOCUMENT_ROOT'] . '/pinkping/inc/footer.php';
