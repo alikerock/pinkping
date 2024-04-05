@@ -1,7 +1,7 @@
 <?php
 $hostname = "localhost";
 $dbuserid = "pinkping";
-$dbpasswd = "123451";
+$dbpasswd = "12345";
 $dbname = "pinkping";
 
 $mysqli = new mysqli($hostname, $dbuserid, $dbpasswd, $dbname);
