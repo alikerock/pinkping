@@ -5,7 +5,7 @@ $result = $mysqli->query($sql);
 while ($row = $result->fetch_object()) {
   $cate1[] = $row;
 }
-print_r($cate1);
+
 ?>
 
 <div class="container">
