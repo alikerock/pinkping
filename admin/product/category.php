@@ -182,15 +182,36 @@ while ($row = $result->fetch_object()) {
   });
 
   function save_category(step) {
-    let pcode = $(`#code${step}`).val();
+    let code = $(`#code${step}`).val();
     let name = $(`#name${step}`).val();
 
     let data = {
       name: name,
-      pcode: pcode,
+      code: code,
       step: step
     }
-    console.log(data);
+    $.ajax({
+      async: false,
+      type: 'post',
+      data: data,
+      url: "save_category.php",
+      dataType: 'json',
+      error: function(error) {
+        console.log(error);
+      },
+      success: function(data) {
+        console.log(data.result, typeof(data.result));
+        if (data.result === 1) {
+          alert('등록 성공');
+          location.reload(); // 새로고침
+        } else if (data.result === '-1') {
+          alert('코드가 중복됩니다.');
+          location.reload(); //강제 새로고침
+        } else {
+          alert('등록 실패');
+        }
+      }
+    }); //ajax
   }
 
   /*
