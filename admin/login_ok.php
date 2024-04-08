@@ -2,11 +2,12 @@
 session_start();
 include_once $_SERVER['DOCUMENT_ROOT'] . '/pinkping/inc/dbcon.php';
 
-$userid = $_POST['userid'];
-$passwd = $_POST['passwd'];
+$userid = trim($_POST['userid']);
+$passwd = trim($_POST['passwd']);
 $passwd = hash('sha512', $passwd);
 
 $sql = "SELECT * FROM admins where userid='{$userid}' and passwd = '{$passwd}'";
+echo $sql;
 $result = $mysqli->query($sql);
 $rs = $result->fetch_object();
 
