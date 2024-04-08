@@ -152,6 +152,7 @@ while ($row = $result->fetch_object()) {
       step: step,
       category: category
     });
+    console.log(data.toString());
 
     try {
       const response = await fetch('printOption.php', {
@@ -167,7 +168,7 @@ while ($row = $result->fetch_object()) {
       }
 
       const resultText = await response.text();
-
+      console.log(resultText);
       target.html(resultText);
     } catch (error) {
       console.error('Error:', error);

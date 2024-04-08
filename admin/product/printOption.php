@@ -11,7 +11,7 @@ $result = $mysqli->query($sql);
 
 while ($row = $result->fetch_object()) {
   //$html .= "<option value=\"" . $row->code . "\">" . $row->name . "</option>";
-  $html .= "<option value=\" $row->code \">  $row->name </option>";
+  $html .= "<option value=\"$row->code\">  $row->name </option>";
 }
 
 echo $html;
