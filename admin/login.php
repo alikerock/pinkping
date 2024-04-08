@@ -7,7 +7,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/pinkping/inc/header.php';
   <form action="login_ok.php" method="POST">
     <h1 class="text-center">관리자 로그인</h1>
     <div class="form-floating mb-3">
-      <input type="email" class="form-control" name="userid" id="userid" placeholder="아이디">
+      <input type="text" class="form-control" name="userid" id="userid" placeholder="아이디">
       <label for="userid">아이디</label>
     </div>
     <div class="form-floating">
