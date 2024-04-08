@@ -86,12 +86,26 @@ while ($row = $result->fetch_object()) {
             <h1 class="modal-title fs-5" id="cate2ModalLabel">중분류 등록</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <div class="modal-body row">
-            <div class="col">
-              <input type="text" class="form-control" id="code2" name="code2" placeholder="코드명 입력">
+          <div class="modal-body">
+            <div class="row">
+              <select class="form-select" aria-label="대분류" id="pcode2">
+                <option disabled>대분류를 선택해주세요</option>
+                <?php
+                foreach ($cate1 as $c1) {
+                ?>
+                  <option value="<?= $c1->code; ?>"><?= $c1->name; ?></option>
+                <?php
+                }
+                ?>
+              </select>
             </div>
-            <div class="col">
-              <input type="text" class="form-control" id="name2" name="name2" placeholder="중분류명 입력">
+            <div class="row mt-3">
+              <div class="col">
+                <input type="text" class="form-control" id="code2" name="code2" placeholder="코드명 입력">
+              </div>
+              <div class="col">
+                <input type="text" class="form-control" id="name2" name="name2" placeholder="중분류명 입력">
+              </div>
             </div>
           </div>
           <div class="modal-footer">
@@ -185,6 +199,20 @@ while ($row = $result->fetch_object()) {
   function save_category(step) {
     let code = $(`#code${step}`).val();
     let name = $(`#name${step}`).val();
+    let pcode = $(`#pcode${step} option:selected`).val();
+
+    if (step > 1 && !pcode) {
+      alert('부모 분류를 선택하세요');
+      return;
+    }
+    if (!code) {
+      alert('분류코드를 입력하세요');
+      return;
+    }
+    if (!name) {
+      alert('분류명을 입력하세요');
+      return;
+    }
 
     let data = {
       name: name,
