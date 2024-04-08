@@ -1,5 +1,6 @@
 <?php
 include_once $_SERVER['DOCUMENT_ROOT'] . '/pinkping/inc/header.php';
+
 $sql = "SELECT * FROM category where step = 1";
 $result = $mysqli->query($sql);
 while ($row = $result->fetch_object()) {
@@ -9,40 +10,40 @@ while ($row = $result->fetch_object()) {
 ?>
 
 <div class="container">
-  <form action="">
-    <div class="category row">
 
-      <div class="col-md-4">
+  <div class="category row">
 
-        <select class="form-select" aria-label="대분류" id="cate1">
-          <option selected>대분류</option>
-          <?php
-          foreach ($cate1 as $c1) {
-          ?>
+    <div class="col-md-4">
 
-            <option value="<?= $c1->code; ?>"><?= $c1->name; ?></option>
+      <select class="form-select" aria-label="대분류" id="cate1">
+        <option selected>대분류</option>
+        <?php
+        foreach ($cate1 as $c1) {
+        ?>
 
-          <?php
-          }
-          ?>
+          <option value="<?= $c1->code; ?>"><?= $c1->name; ?></option>
 
-        </select>
-      </div>
-      <div class="col-md-4">
+        <?php
+        }
+        ?>
 
-        <select class="form-select" aria-label="중분류" id="cate2">
-
-        </select>
-      </div>
-      <div class="col-md-4">
-
-        <select class="form-select" aria-label="소분류" id="cate3">
-
-        </select>
-      </div>
-
+      </select>
     </div>
-  </form>
+    <div class="col-md-4">
+
+      <select class="form-select" aria-label="중분류" id="cate2">
+
+      </select>
+    </div>
+    <div class="col-md-4">
+
+      <select class="form-select" aria-label="소분류" id="cate3">
+
+      </select>
+    </div>
+
+  </div>
+
   <div class="buttons mt-3">
     <!-- 대분류 등록 버튼 -->
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#cate1Modal">
@@ -170,50 +171,8 @@ while ($row = $result->fetch_object()) {
 
 </div><!-- //container -->
 
+<script src="/pinkping/admin/js/makeoption.js"></script>
 <script>
-  $('#cate1').change(function() {
-    makeOption($(this), 2, '중분류', $('#cate2'));
-  });
-  $('#cate2').change(function() {
-    makeOption($(this), 3, '소분류', $('#cate3'));
-  });
-  $('#pcode2_1').change(function() {
-    makeOption($(this), 2, '중분류', $('#pcode3'));
-  });
-  $('#cate3').change(function() {
-
-  });
-
-  async function makeOption(e, step, category, target) {
-    let cate = e.val();
-    let data = new URLSearchParams({
-      cate: cate,
-      step: step,
-      category: category
-    });
-    console.log(data.toString());
-
-    try {
-      const response = await fetch('printOption.php', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: data
-      });
-
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-
-      const resultText = await response.text();
-      console.log(resultText);
-      target.html(resultText);
-    } catch (error) {
-      console.error('Error:', error);
-    }
-  }
-
   let categorySubmitBtn = $(".modal button[type='submit']");
 
   categorySubmitBtn.click(function() {
