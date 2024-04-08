@@ -129,12 +129,34 @@ while ($row = $result->fetch_object()) {
             <h1 class="modal-title fs-5" id="cate3ModalLabel">소분류 등록</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <div class="modal-body row">
-            <div class="col">
-              <input type="text" class="form-control" id="code1" name="code1" placeholder="코드명 입력">
+          <div class="modal-body">
+
+            <div class="row">
+              <div class="col">
+                <select class="form-select" aria-label="대분류" id="pcode2_1">
+                  <option selected disabled>대분류를 선택해주세요</option>
+                  <?php
+                  foreach ($cate1 as $c1) {
+                  ?>
+                    <option value="<?= $c1->code; ?>"><?= $c1->name; ?></option>
+                  <?php
+                  }
+                  ?>
+                </select>
+              </div>
+              <div class="col">
+                <select class="form-select" aria-label="중분류" id="pcode3">
+                  <option selected disabled>대분류를 먼저 선택해주세요</option>
+                </select>
+              </div>
             </div>
-            <div class="col">
-              <input type="text" class="form-control" id="name1" name="name1" placeholder="대분류명 입력">
+            <div class="row mt-3">
+              <div class="col">
+                <input type="text" class="form-control" id="code3" name="code3" placeholder="코드명 입력">
+              </div>
+              <div class="col">
+                <input type="text" class="form-control" id="name3" name="name3" placeholder="대분류명 입력">
+              </div>
             </div>
           </div>
           <div class="modal-footer">
@@ -154,6 +176,9 @@ while ($row = $result->fetch_object()) {
   });
   $('#cate2').change(function() {
     makeOption($(this), 3, '소분류', $('#cate3'));
+  });
+  $('#pcode2_1').change(function() {
+    makeOption($(this), 2, '중분류', $('#pcode3'));
   });
   $('#cate3').change(function() {
 
@@ -217,6 +242,7 @@ while ($row = $result->fetch_object()) {
     let data = {
       name: name,
       code: code,
+      pcode: pcode,
       step: step
     }
     $.ajax({
