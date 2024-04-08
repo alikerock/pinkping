@@ -262,9 +262,14 @@ while ($row = $result->fetch_object()) {
         } else if (data.result === '-1') {
           alert('코드가 중복됩니다.');
           location.reload(); //강제 새로고침
+        } else if (data.result === 'member') {
+          alert('관리자가 아닙니다.');
+          location.href = '/pinkping/admin/login.php';
         } else {
           alert('등록 실패');
+          location.reload(); // 새로고침
         }
+
       }
     }); //ajax
   }
