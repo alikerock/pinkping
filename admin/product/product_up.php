@@ -10,6 +10,7 @@ while ($row = $result->fetch_object()) {
 
 <!-- include summernote css/js -->
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 
 
@@ -88,7 +89,17 @@ while ($row = $result->fetch_object()) {
       <tr>
         <th>위치지정</th>
         <td>
-          <input type="text" name="price" id="price" placeholder="상품가격">
+          <select class="form-select" name="locate" id="locate" aria-label="위치지정">
+            <option value="0">지정 안함</option>
+            <option value="1">1번 위치</option>
+            <option value="2">2번 위치</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <th>상품 종료일</th>
+        <td>
+          <input type="text" name="sale_end_date" id="sale_end_date">
         </td>
       </tr>
       <tr>
@@ -97,6 +108,28 @@ while ($row = $result->fetch_object()) {
           <textarea id="summernote" name="desc" class="w-100"></textarea>
         </td>
       </tr>
+      <tr>
+        <th>대표 이미지</th>
+        <td>
+          <input type="file" name="thumbnail" id="thumbnail">
+        </td>
+      </tr>
+      <tr>
+        <th>추가 이미지</th>
+        <td>
+          <input type="file" multiple name="upfile[]" id="upfile" class="d-none">
+          <div>
+            <button type="button" class="btn btn-secondary btn-sm" id="addImage">이미지 추가</button>
+          </div>
+          <div id="addedimages">
+
+          </div>
+        </td>
+      </tr>
+      <!--
+        옵션
+        컬러, 사이즈..
+       -->
     </tbody>
   </table>
   <div class="text-end">
@@ -106,12 +139,34 @@ while ($row = $result->fetch_object()) {
 </div>
 
 <script src="/pinkping/admin/js/makeoption.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 
 <script>
   $(document).ready(function() {
+
     $('#summernote').summernote({
       height: 300
     });
+
+    $("#sale_end_date").datepicker();
+
+    //추가 이미지 등록
+    $('#addImage').click(function() {
+      $('#upfile').trigger('click');
+    });
+    $('#upfile').change(function() {
+      let files = $(this).prop('files');
+      console.log(files);
+      for (let i = 0; i < files.lenght; i++) {
+        attachFile(files[i]);
+      }
+    });
+
+    function attachFile(file) {
+      var formData = new FormData();
+      formData.append('savefile', file); //<input name="savefile" value="파일명">
+    }
+
   });
 </script>
 
