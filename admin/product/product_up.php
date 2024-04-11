@@ -236,7 +236,10 @@ while ($row = $result->fetch_object()) {
           console.log('error:', error);
         },
         success: function(return_data) {
-          if (return_data.result === 'mine') {
+          if (return_data.result === 'member') {
+            alert('권한이 없습니다.');
+            return;
+          } else if (return_data.result === 'mine') {
             alert('본인이 등록한 이미지만 삭제할 수 있습니다.');
             return;
           } else if (return_data.result === 'fail') {
