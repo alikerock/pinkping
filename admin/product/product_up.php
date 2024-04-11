@@ -166,7 +166,7 @@ while ($row = $result->fetch_object()) {
     $('#upfile').change(function() {
       let files = $(this).prop('files');
       console.log(files);
-      for (let i = 0; i < files.lenght; i++) {
+      for (let i = 0; i < files.length; i++) {
         attachFile(files[i]);
       }
     });
@@ -178,6 +178,9 @@ while ($row = $result->fetch_object()) {
       $.ajax({
         url: 'product_save_image.php',
         data: formData,
+        cache: false,
+        contentType: false,
+        processData: false,
         dataType: 'json',
         type: 'POST',
         success: function(return_data) {
@@ -195,7 +198,7 @@ while ($row = $result->fetch_object()) {
             $('#product_image_id').val(imgid);
             let html = `
                 <div class="card" style="width: 10rem;" id="${return_data.imgid}">
-                  <img src="/pinkping/admin/upload/${return_data.savename}" class="img-fluid" alt="...">
+                  <img src="/pinkping/admin/upload/${return_data.savefile}" class="img-fluid" alt="...">
                   <button type="button" class="btn btn-danger btn-sm">삭제</button>
                 </div>
               `;
