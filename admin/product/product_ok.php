@@ -9,7 +9,7 @@ $cate3 = $_POST['cate3'] ?? '';
 $cate = $cate1 . $cate2 . $cate3;
 
 $name  = $_POST['name'];
-$content  = $_POST['content'];
+$content  = rawurldecode($_POST['contents']);
 // $thumbnail  = $_POST['thumbnail'];
 $price = $_POST['price'];
 $sale_price = $_POST['sale_price'] ?? 0;
@@ -26,7 +26,7 @@ $locate = $_POST['locate'] ?? 0;
 $userid = $_SESSION['AUID'];
 $sale_end_date = $_POST['sale_end_date'];
 
-$status = $_POST['status'];
+$status = $_POST['status'] ?? 0;
 $delivery_fee = $_POST['delivery_fee'] ?? 0;
 
 //파일 사이즈 검사
