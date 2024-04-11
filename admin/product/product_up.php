@@ -30,8 +30,8 @@ while ($row = $result->fetch_object()) {
             <div class="category row">
               <div class="col">
 
-                <select class="form-select" aria-label="대분류" id="cate1" name="cate1">
-                  <option selected>대분류</option>
+                <select class="form-select" aria-label="대분류" id="cate1" name="cate1" required>
+                  <option selected disabled>대분류</option>
                   <?php
                   foreach ($cate1 as $c1) {
                   ?>
@@ -62,13 +62,13 @@ while ($row = $result->fetch_object()) {
         <tr>
           <th>상품명</th>
           <td>
-            <input type="text" name="name" id="name" placeholder="상품명">
+            <input type="text" name="name" id="name" placeholder="상품명" required>
           </td>
         </tr>
         <tr>
           <th>상품가격</th>
           <td>
-            <input type="text" name="price" id="price" placeholder="상품가격">
+            <input type="text" name="price" id="price" placeholder="상품가격" required>
           </td>
         </tr>
         <tr>
@@ -117,7 +117,7 @@ while ($row = $result->fetch_object()) {
         <tr>
           <th>대표 이미지</th>
           <td>
-            <input type="file" name="thumbnail" id="thumbnail" accept="image/*">
+            <input type="file" name="thumbnail" id="thumbnail" accept="image/*" required>
           </td>
         </tr>
         <tr>
