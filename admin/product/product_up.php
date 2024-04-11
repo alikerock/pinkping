@@ -187,6 +187,7 @@ while ($row = $result->fetch_object()) {
         dataType: 'json',
         type: 'POST',
         success: function(return_data) {
+          console.log(return_data);
           if (return_data.result == 'size') {
             alert('10메가 이하만 첨부할수 있습니다.');
             return; //함수 종료(빈값을 리턴);
