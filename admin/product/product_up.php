@@ -172,6 +172,7 @@ while ($row = $result->fetch_object()) {
       for (let i = 0; i < files.length; i++) {
         attachFile(files[i]);
       }
+      $('#upfile').val('');
     });
 
     function attachFile(file) {
