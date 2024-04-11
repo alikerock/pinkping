@@ -1,13 +1,7 @@
 <?php
 session_start();
-//관리자 검사
-if (!isset($_SESSION['AUID'])) {
-  echo "<script>
-    alert('권한이 없습니다.');
-    location.href='/pinkping/admin/login.php';
-  </script>";
-}
 
+include_once $_SERVER['DOCUMENT_ROOT'] . '/pinkping/admin/inc/admin_check.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/pinkping/inc/header.php';
 
 $sql = "SELECT * FROM category where step = 1";
@@ -122,7 +116,7 @@ while ($row = $result->fetch_object()) {
         <tr>
           <th>대표 이미지</th>
           <td>
-            <input type="file" name="thumbnail" id="thumbnail">
+            <input type="file" name="thumbnail" id="thumbnail" accept="image/*">
           </td>
         </tr>
         <tr>
