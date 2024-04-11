@@ -169,7 +169,9 @@ while ($row = $result->fetch_object()) {
       height: 300
     });
 
-    $("#sale_end_date").datepicker();
+    $("#sale_end_date").datepicker({
+      dateFormat: "yy-mm-dd"
+    });
 
     //추가 이미지 등록
     $('#addImage').click(function() {
