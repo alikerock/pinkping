@@ -214,6 +214,41 @@ while ($row = $result->fetch_object()) {
       });
     }
 
+    $('#addedimages').on('click', 'button', function() {
+      let imgid = $(this).parent().attr('id');
+      file_delete(imgid);
+    });
+
+    function file_delete(imgid) {
+      if (!confirm('정말 삭제할까요?')) {
+        return false;
+      }
+      let data = {
+        imgid: imagid
+      }
+      $.ajax({
+        async: false, //결과가 있으면 반영해줘
+        type: 'POST',
+        url: 'image_delete.php',
+        data: data,
+        dataType: 'json',
+        error: function(error) {
+          console.log('error:', error);
+        },
+        success: function(return_data) {
+          if (return_data.result === 'mine') {
+            alert('본인이 등록한 이미지만 삭제할 수 있습니다.');
+            return;
+          } else if (return_data.result === 'fail') {
+            alert('삭제 실패!');
+            return;
+          } else {
+            $('#' + imgid).remove();
+          }
+        }
+      });
+    }
+
   });
 </script>
 
