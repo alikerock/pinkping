@@ -82,3 +82,5 @@ $sql = "INSERT INTO products (name,cate,content,thumbnail,price,sale_price,sale_
   '{$status}',
   '{$delivery_fee}'
 )";
+
+echo $sql;
