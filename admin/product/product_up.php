@@ -19,8 +19,9 @@ while ($row = $result->fetch_object()) {
 
 <div class="container">
   <h1>상품 등록</h1>
-  <form action="product_ok.php" method="POST" enctype="multipart/form-data">
+  <form action="product_ok.php" method="POST" enctype="multipart/form-data" id="product_save">
     <input type="hidden" name="product_image" id="product_image_id">
+    <input type="hidden" name="contents" id="contents">
     <table class="table">
       <tbody>
         <tr>
@@ -29,7 +30,7 @@ while ($row = $result->fetch_object()) {
             <div class="category row">
               <div class="col">
 
-                <select class="form-select" aria-label="대분류" id="cate1">
+                <select class="form-select" aria-label="대분류" id="cate1" name="cate1">
                   <option selected>대분류</option>
                   <?php
                   foreach ($cate1 as $c1) {
@@ -45,13 +46,13 @@ while ($row = $result->fetch_object()) {
               </div>
               <div class="col">
 
-                <select class="form-select" aria-label="중분류" id="cate2">
+                <select class="form-select" aria-label="중분류" id="cate2" name="cate2">
 
                 </select>
               </div>
               <div class="col">
 
-                <select class="form-select" aria-label="소분류" id="cate3">
+                <select class="form-select" aria-label="소분류" id="cate3" name="cate3">
 
                 </select>
               </div>
@@ -155,6 +156,14 @@ while ($row = $result->fetch_object()) {
 
 <script>
   $(document).ready(function() {
+
+    $('#product_save').on('submit', save);
+
+    function save() {
+      let markupStr = $('#summernote').summernote('code');
+      let contents = encodeURIComponent(markupStr);
+      $('#contents').val(contents);
+    }
 
     $('#summernote').summernote({
       height: 300
