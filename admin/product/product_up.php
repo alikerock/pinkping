@@ -1,4 +1,13 @@
 <?php
+session_start();
+//관리자 검사
+if (!isset($_SESSION['AUID'])) {
+  echo "<script>
+    alert('권한이 없습니다.');
+    location.href='/pinkping/admin/login.php';
+  </script>";
+}
+
 include_once $_SERVER['DOCUMENT_ROOT'] . '/pinkping/inc/header.php';
 
 $sql = "SELECT * FROM category where step = 1";
