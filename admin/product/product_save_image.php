@@ -28,4 +28,12 @@ $ext = pathinfo($fiename, PATHINFO_EXTENSION); //jpg
 $newfilename = date("YmdHis") . substr(rand(), 0, 6); //202404111137.123123 -> 202404111137123123 
 $savefile = $newfilename . '.' . $ext;  //202404111137123123.jpg
 
-move_uploaded_file($_FILES["savefile"]["tmp_name"], $save_dir . $savefile);
+if (move_uploaded_file($_FILES["savefile"]["tmp_name"], $save_dir . $savefile)) {
+  $sql = "INSERT INTO product_image_table (userid, filename) VALUES ('{$_SESSION['AUID']}', '{$savefile}')";
+  $result = $mysqli->query($sql);
+  $imgid = $mysqli->insert_id; //자동생성되는 id 번호
+
+  $result_data = array('result' => 'success', 'imgid' => $imgid, 'savefile' => $savefile);
+  echo json_encode($result_data);
+  exit;
+}
