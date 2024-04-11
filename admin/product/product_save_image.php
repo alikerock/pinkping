@@ -22,3 +22,7 @@ if (strpos($_FILES['savefile']['type'], 'image') === false) {
   exit;
 }
 //파일 업로드
+$save_dir = $_SERVER['DOCUMENT_ROOT'] . '/pinkping/admin/upload';
+$fiename = $_FILES["savefile"]["name"]; //insta.jpg
+$ext = pathinfo($fiename, PATHINFO_EXTENSION); //jpg
+$newfilename = date("YmdHis")
