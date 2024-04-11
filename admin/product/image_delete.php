@@ -26,4 +26,9 @@ $result = $mysqli->query($sql);
 if ($result) {
   $delete_file = $_SERVER['DOCUMENT_ROOT'] . '/pinkping/admin/upload/' . $rs->filename;
   unlink($delete_file);
+  $result_data = array('result' => 'ok');
+  echo json_encode($result_data);
+} else {
+  $result_data = array('result' => 'fail');
+  echo json_encode($result_data);
 }

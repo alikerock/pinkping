@@ -224,7 +224,7 @@ while ($row = $result->fetch_object()) {
         return false;
       }
       let data = {
-        imgid: imagid
+        imgid: imgid
       }
       $.ajax({
         async: false, //결과가 있으면 반영해줘
