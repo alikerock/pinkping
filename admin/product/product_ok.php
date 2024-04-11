@@ -28,6 +28,10 @@ $sale_end_date = $_POST['sale_end_date'];
 
 $status = $_POST['status'] ?? 0;
 $delivery_fee = $_POST['delivery_fee'] ?? 0;
+$addedImg_id = rtrim($_POST['product_image'], ',');
+
+
+
 
 //파일 사이즈 검사
 if ($_FILES['thumbnail']['size'] > 10240000) {
@@ -83,4 +87,21 @@ $sql = "INSERT INTO products (name,cate,content,thumbnail,price,sale_price,sale_
   '{$delivery_fee}'
 )";
 
-echo $sql;
+$result = $mysqli->query($sql);
+$pid = $mysqli->insert_id;
+
+if ($result) { //상품 등록 하면
+
+  $sql = "UPDATE product_image_table SET pid = {$pid} where imgid in ({$addedImg_id})";
+  $result = $mysqli->query($sql);
+
+  echo "<script>
+  alert('상품 등록 완료');
+  location.href = '/pinkping/admin/product/product_list.php';
+  </script>";
+} else {
+  echo "<script>
+  alert('상품 등록 실패');
+  history.back();
+  </script>";
+}
