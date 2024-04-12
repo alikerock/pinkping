@@ -93,28 +93,34 @@ while ($rs = $result->fetch_object()) {
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <?php
-        if (isset($rsArr)) {
+      <?php
+      if (isset($rsArr)) {
+        foreach ($rsArr as $item) {
+      ?>
+          <tr>
+            <th scope="row">
+              <img src="<?= $item->thumbnail ?>" alt="" width="150">
+            </th>
+            <td><?= $item->name ?></td>
+            <td><?= $item->price ?></td>
+            <td><?= $item->cnt ?></td>
+            <td><input class="form-check-input" type="checkbox" value="1" checked id="ismain" name="ismain"></td>
+            <td><input class="form-check-input" type="checkbox" value="1" id="isnew" name="isnew"></td>
+            <td><input class="form-check-input" type="checkbox" value="1" checked id="isbest" name="isbest"></td>
+            <td><input class="form-check-input" type="checkbox" value="1" checked id="isrecom" name="isrecom"></td>
+            <td>
+              <select class="form-select" aria-label="판매상태" name="status" id="status">
+                <option value="-1">판매중지</option>
+                <option value="0">대기</option>
+                <option value="1">판매중</option>
+              </select>
+            </td>
+            <td><a href="" class="btn btn-info">보기</a></td>
+          </tr>
+      <?php
         }
-        ?>
-        <th scope="row">사진</th>
-        <td>상품명1</td>
-        <td>12000</td>
-        <td>0</td>
-        <td><input class="form-check-input" type="checkbox" value="1" checked id="ismain" name="ismain"></td>
-        <td><input class="form-check-input" type="checkbox" value="1" id="isnew" name="isnew"></td>
-        <td><input class="form-check-input" type="checkbox" value="1" checked id="isbest" name="isbest"></td>
-        <td><input class="form-check-input" type="checkbox" value="1" checked id="isrecom" name="isrecom"></td>
-        <td>
-          <select class="form-select" aria-label="판매상태" name="status" id="status">
-            <option value="-1">판매중지</option>
-            <option value="0">대기</option>
-            <option value="1">판매중</option>
-          </select>
-        </td>
-        <td><a href="" class="btn btn-info">보기</a></td>
-      </tr>
+      }
+      ?>
 
     </tbody>
   </table>
