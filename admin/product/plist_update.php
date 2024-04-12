@@ -11,13 +11,13 @@ $isrecom = $_REQUEST['isrecom'] ?? [];
 $status = $_REQUEST['status'] ?? [];
 
 foreach($pid as $p){
-  $ismain = $ismain[$p] ?? 0;
-  $isnew = $isnew[$p] ?? 0;
-  $isbest = $isbest[$p] ?? 0;
-  $isrecom = $isrecom[$p] ?? 0;
-  $status = $status[$p] ?? 0;
+  $ismain[$p] = $ismain[$p] ?? 0;
+  $isnew[$p] = $isnew[$p] ?? 0;
+  $isbest[$p] = $isbest[$p] ?? 0;
+  $isrecom[$p] = $isrecom[$p] ?? 0;
+  $status[$p] = $status[$p] ?? 0;
 
-  $sql  = "UPDATE products set ismain = {$ismain}, isnew = {$isnew}, isbest = {$isbest},isrecom = {$isrecom},status = {$status} WHERE pid ={$p}";
+  $sql  = "UPDATE products set ismain = {$ismain[$p]}, isnew = {$isnew[$p]}, isbest = {$isbest[$p]},isrecom = {$isrecom[$p]},status = {$status[$p]} WHERE pid ={$p}";
   $result = $mysqli -> query($sql);
 }
 if($result){
