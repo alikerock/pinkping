@@ -57,8 +57,8 @@ while ($row = $result->fetch_object()) {
         <input class="form-check-input" type="checkbox" value="1" id="isbest" name="isbest">
         <label class="form-check-label" for="isbest">베스트</label>
 
-        <input class="form-check-input" type="checkbox" value="1" id="isreom" name="isreom">
-        <label class="form-check-label" for="isreom">추천</label>
+        <input class="form-check-input" type="checkbox" value="1" id="isrecom" name="isrecom">
+        <label class="form-check-label" for="isrecom">추천</label>
       </div>
       <div class="group d-flex align-items-center">
         <label class="form-label text-nowrap" for="end_date">판매종료일</label>
@@ -73,30 +73,38 @@ while ($row = $result->fetch_object()) {
   <table class="table">
     <thead>
       <tr>
-        <th scope="col">#</th>
-        <th scope="col">First</th>
-        <th scope="col">Last</th>
-        <th scope="col">Handle</th>
+        <th scope="col">썸네일</th>
+        <th scope="col">제품명</th>
+        <th scope="col">가격</th>
+        <th scope="col">재고</th>
+        <th scope="col">메인</th>
+        <th scope="col">신제품</th>
+        <th scope="col">베스트</th>
+        <th scope="col">추천</th>
+        <th scope="col">상태</th>
+        <th scope="col">보기</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
+        <th scope="row">사진</th>
+        <td>상품명1</td>
+        <td>12000</td>
+        <td>0</td>
+        <td><input class="form-check-input" type="checkbox" value="1" checked id="ismain" name="ismain"></td>
+        <td><input class="form-check-input" type="checkbox" value="1" id="isnew" name="isnew"></td>
+        <td><input class="form-check-input" type="checkbox" value="1" checked id="isbest" name="isbest"></td>
+        <td><input class="form-check-input" type="checkbox" value="1" checked id="isrecom" name="isrecom"></td>
+        <td>
+          <select class="form-select" aria-label="판매상태" name="status" id="status">
+            <option value="-1">판매중지</option>
+            <option value="0">대기</option>
+            <option value="1">판매중</option>
+          </select>
+        </td>
+        <td><a href="" class="btn btn-info">보기</a></td>
       </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td colspan="2">Larry the Bird</td>
-        <td>@twitter</td>
-      </tr>
+
     </tbody>
   </table>
   <a href="product_up.php" class="btn btn-primary">상품 등록</a>
