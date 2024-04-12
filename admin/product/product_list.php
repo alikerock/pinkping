@@ -45,10 +45,13 @@ $sql = "SELECT * FROM products where 1=1"; //모든 상품 조회 쿼리
 $sql .= $search_where;
 $order = " order by pid desc";
 $sql .= $order;
-
-//echo $sql;
-
 $result = $mysqli->query($sql);
+
+$cntsql = "SELECT COUNT(*) AS cnt FROM products where 1=1"; 
+$cntsql .= $search_where;
+$cntresult = $mysqli->query($cntsql);
+$cntrow = $cntresult->fetch_object();
+$count = $cntrow -> cnt;
 
 while ($rs = $result->fetch_object()) {
   $rsArr[] = $rs;
@@ -114,6 +117,11 @@ while ($rs = $result->fetch_object()) {
       </div>
     </div>
   </form>
+  <hr>  
+  <div>
+    검색결과: <?= $count;  ?>
+  </div>
+  <hr>
   <form action="plist_update.php">
     <table class="table">
       <thead>
@@ -128,6 +136,7 @@ while ($rs = $result->fetch_object()) {
           <th scope="col">추천</th>
           <th scope="col">상태</th>
           <th scope="col">보기</th>
+          <th scope="col">수정</th>
         </tr>
       </thead>
       <tbody>
@@ -178,6 +187,7 @@ while ($rs = $result->fetch_object()) {
                 </select>
               </td>
               <td><a href="product_view.php?pid=<?= $item->pid; ?>" class="btn btn-info">보기</a></td>
+              <td><a href="product_edit.php?pid=<?= $item->pid; ?>" class="btn btn-info">수정</a></td>
             </tr>
         <?php
           }
