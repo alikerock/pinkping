@@ -32,7 +32,6 @@ $addedImg_id = rtrim($_POST['product_image'], ',');
 
 
 
-
 //파일 사이즈 검사
 if ($_FILES['thumbnail']['size'] > 10240000) {
   echo "<script>
@@ -92,8 +91,10 @@ $pid = $mysqli->insert_id;
 
 if ($result) { //상품 등록 하면
 
-  $sql = "UPDATE product_image_table SET pid = {$pid} where imgid in ({$addedImg_id})";
-  $result = $mysqli->query($sql);
+  if(strlen($addedImg_id) > 0){
+    $sql = "UPDATE product_image_table SET pid = {$pid} where imgid in ({$addedImg_id})";
+    $result = $mysqli->query($sql);
+  }
 
   echo "<script>
   alert('상품 등록 완료');
