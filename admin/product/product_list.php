@@ -3,14 +3,9 @@ session_start();
 
 include_once $_SERVER['DOCUMENT_ROOT'] . '/pinkping/admin/inc/admin_check.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/pinkping/inc/header.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/pinkping/admin/inc/category_func.php';
 
-$sql = "SELECT * FROM category where step = 1";
-$result = $mysqli->query($sql);
-while ($row = $result->fetch_object()) {
-  $cate1[] = $row;
-}
-
-$cate1 = $_GET['cate1'] ?? '';
+$cates1 = $_GET['cate1'] ?? '';
 $cate2 = $_GET['cate2'] ?? '';
 $cate3 = $_GET['cate3'] ?? '';
 $ismain = $_GET['ismain'] ?? '';
@@ -19,7 +14,7 @@ $isbest = $_GET['isbest'] ?? '';
 $isrecom = $_GET['isrecom'] ?? '';
 $sale_end_date = $_GET['sale_end_date'] ?? '';
 $search_keyword = $_GET['search_keyword'] ?? '';
-$cates = $cate1.$cate2.$cate3;
+$cates = $cates1.$cate2.$cate3;
 
 $search_where = "";
 
@@ -38,12 +33,21 @@ if($isbest){
 if($isrecom){
   $search_where .= " and isrecom = 1";
 }
-if($isrecom){
-  $search_where .= " and isrecom = 1";
+if($sale_end_date){
+  $search_where .= " and sale_end_date >= {$sale_end_date}";
+}
+if($search_keyword){
+  $search_where .= " and (name LIKE '%{$search_keyword}%' or content LIKE '%{$search_keyword}%')";
 }
 
 
 $sql = "SELECT * FROM products where 1=1"; //모든 상품 조회 쿼리
+$sql .= $search_where;
+$order = " order by pid desc";
+$sql .= $order;
+
+echo $sql;
+
 $result = $mysqli->query($sql);
 
 while ($rs = $result->fetch_object()) {
