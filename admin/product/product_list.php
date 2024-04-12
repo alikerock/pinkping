@@ -9,6 +9,13 @@ $result = $mysqli->query($sql);
 while ($row = $result->fetch_object()) {
   $cate1[] = $row;
 }
+
+$sql = "SELECT * FROM products";
+$result = $mysqli->query($sql);
+
+while ($rs = $result->fetch_object()) {
+  $rsArr[] = $rs;
+}
 ?>
 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
@@ -87,6 +94,10 @@ while ($row = $result->fetch_object()) {
     </thead>
     <tbody>
       <tr>
+        <?php
+        if (isset($rsArr)) {
+        }
+        ?>
         <th scope="row">사진</th>
         <td>상품명1</td>
         <td>12000</td>
