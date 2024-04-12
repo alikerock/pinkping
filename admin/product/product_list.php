@@ -15,36 +15,61 @@ while ($row = $result->fetch_object()) {
 
 <div class="container">
   <h1>상품 목록</h1>
-  <div class="category row">
-    <div class="col">
+  <form action="" id="search_form">
+    <div class="category row">
+      <div class="col">
 
-      <select class="form-select" aria-label="대분류" id="cate1" name="cate1" required>
-        <option selected disabled>대분류</option>
-        <?php
-        foreach ($cate1 as $c1) {
-        ?>
+        <select class="form-select" aria-label="대분류" id="cate1" name="cate1" required>
+          <option selected disabled>대분류</option>
+          <?php
+          foreach ($cate1 as $c1) {
+          ?>
 
-          <option value="<?= $c1->code; ?>"><?= $c1->name; ?></option>
+            <option value="<?= $c1->code; ?>"><?= $c1->name; ?></option>
 
-        <?php
-        }
-        ?>
+          <?php
+          }
+          ?>
 
-      </select>
+        </select>
+      </div>
+      <div class="col">
+
+        <select class="form-select" aria-label="중분류" id="cate2" name="cate2">
+
+        </select>
+      </div>
+      <div class="col">
+
+        <select class="form-select" aria-label="소분류" id="cate3" name="cate3">
+
+        </select>
+      </div>
     </div>
-    <div class="col">
+    <div class="d-flex gap-3 mt-3 justify-content-between align-items-center">
+      <div class="group">
+        <input class="form-check-input" type="checkbox" value="1" id="ismain" name="ismain">
+        <label class="form-check-label" for="ismain">메인</label>
 
-      <select class="form-select" aria-label="중분류" id="cate2" name="cate2">
+        <input class="form-check-input" type="checkbox" value="1" id="isnew" name="isnew">
+        <label class="form-check-label" for="isnew">신제품</label>
 
-      </select>
+        <input class="form-check-input" type="checkbox" value="1" id="isbest" name="isbest">
+        <label class="form-check-label" for="isbest">베스트</label>
+
+        <input class="form-check-input" type="checkbox" value="1" id="isreom" name="isreom">
+        <label class="form-check-label" for="isreom">추천</label>
+      </div>
+      <div class="group d-flex align-items-center">
+        <label class="form-label text-nowrap" for="end_date">판매종료일</label>
+        <input class="form-control" type="text" id="end_date" name="sale_end_date">
+      </div>
+      <div class="group d-flex align-items-center">
+        <input class="form-control" type="text" id="search_keyword" name="search_keyword" placeholder="상품명 또는 내용 입력">
+        <button class="btn btn-primary text-nowrap">검색</button>
+      </div>
     </div>
-    <div class="col">
-
-      <select class="form-select" aria-label="소분류" id="cate3" name="cate3">
-
-      </select>
-    </div>
-  </div>
+  </form>
   <table class="table">
     <thead>
       <tr>
@@ -79,6 +104,11 @@ while ($row = $result->fetch_object()) {
 
 <script src="/pinkping/admin/js/makeoption.js"></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+<script>
+  $("#end_date").datepicker({
+    dateFormat: "yy-mm-dd"
+  });
+</script>
 
 <?php
 include_once $_SERVER['DOCUMENT_ROOT'] . '/pinkping/inc/footer.php';
