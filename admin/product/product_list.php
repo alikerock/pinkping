@@ -10,7 +10,40 @@ while ($row = $result->fetch_object()) {
   $cate1[] = $row;
 }
 
-$sql = "SELECT * FROM products";
+$cate1 = $_GET['cate1'] ?? '';
+$cate2 = $_GET['cate2'] ?? '';
+$cate3 = $_GET['cate3'] ?? '';
+$ismain = $_GET['ismain'] ?? '';
+$isnew = $_GET['isnew'] ?? '';
+$isbest = $_GET['isbest'] ?? '';
+$isrecom = $_GET['isrecom'] ?? '';
+$sale_end_date = $_GET['sale_end_date'] ?? '';
+$search_keyword = $_GET['search_keyword'] ?? '';
+$cates = $cate1.$cate2.$cate3;
+
+$search_where = "";
+
+if($cates){
+  $search_where .= " and cate LIKE '%{$cates}%'";
+}
+if($ismain){
+  $search_where .= " and ismain = 1";
+}
+if($isnew){
+  $search_where .= " and isnew = 1";
+}
+if($isbest){
+  $search_where .= " and isbest = 1";
+}
+if($isrecom){
+  $search_where .= " and isrecom = 1";
+}
+if($isrecom){
+  $search_where .= " and isrecom = 1";
+}
+
+
+$sql = "SELECT * FROM products where 1=1"; //모든 상품 조회 쿼리
 $result = $mysqli->query($sql);
 
 while ($rs = $result->fetch_object()) {
@@ -104,18 +137,41 @@ while ($rs = $result->fetch_object()) {
             <td><?= $item->name ?></td>
             <td><?= $item->price ?></td>
             <td><?= $item->cnt ?></td>
-            <td><input class="form-check-input" type="checkbox" value="1" checked id="ismain" name="ismain"></td>
-            <td><input class="form-check-input" type="checkbox" value="1" id="isnew" name="isnew"></td>
-            <td><input class="form-check-input" type="checkbox" value="1" checked id="isbest" name="isbest"></td>
-            <td><input class="form-check-input" type="checkbox" value="1" checked id="isrecom" name="isrecom"></td>
+            <td>
+              <input class="form-check-input" type="checkbox" value="<?= $item->ismain ?>"  
+                <?php 
+                if($item->ismain){ echo "checked";} 
+                ?>
+              id="ismain" name="ismain">
+            </td>
+            <td>
+              <input class="form-check-input" type="checkbox" value="<?= $item->isnew ?>" id="isnew" name="isnew"
+              <?php 
+                if($item->isnew){ echo "checked";} 
+                ?>
+              >
+            </td>
+            <td>
+              <input class="form-check-input" type="checkbox" value="<?= $item->isbest ?>"  id="isbest" name="isbest"
+              <?php 
+                if($item->isbest){ echo "checked";} 
+                ?>
+              >
+            </td>
+            <td>
+              <input class="form-check-input" type="checkbox" value="<?= $item->isrecom ?>"  id="isrecom" name="isrecom"
+              <?php if($item->isrecom){ echo "checked";} ?>
+              >             
+           
+            </td>
             <td>
               <select class="form-select" aria-label="판매상태" name="status" id="status">
-                <option value="-1">판매중지</option>
-                <option value="0">대기</option>
-                <option value="1">판매중</option>
+                <option value="-1"<?php if($item->status == -1){ echo "selected";} ?>>판매중지</option>
+                <option value="0" <?php if($item->status == 0){ echo "selected";} ?>>대기</option>
+                <option value="1" <?php if($item->status == 1){ echo "selected";} ?>>판매중</option>
               </select>
             </td>
-            <td><a href="" class="btn btn-info">보기</a></td>
+            <td><a href="product_view.php?pid=<?= $item->pid; ?>" class="btn btn-info">보기</a></td>
           </tr>
       <?php
         }
