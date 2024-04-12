@@ -34,7 +34,7 @@ if($isrecom){
   $search_where .= " and isrecom = 1";
 }
 if($sale_end_date){
-  $search_where .= " and sale_end_date >= {$sale_end_date}";
+  $search_where .= " and sale_end_date >=  CAST('{$sale_end_date}' AS datetime)";
 }
 if($search_keyword){
   $search_where .= " and (name LIKE '%{$search_keyword}%' or content LIKE '%{$search_keyword}%')";
@@ -46,7 +46,7 @@ $sql .= $search_where;
 $order = " order by pid desc";
 $sql .= $order;
 
-echo $sql;
+//echo $sql;
 
 $result = $mysqli->query($sql);
 
