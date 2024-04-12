@@ -49,7 +49,7 @@ $count = $cntrow -> cnt; //검색 개수 출력
 
 //페이지네이션 시작
 $pageNumber = $_GET['pageNumber'] ?? 1;
-$pageCount = $_GET['pageCount'] ?? 10;
+$pageCount = $_GET['pageCount'] ?? 5;
 $startLimit = ($pageNumber -1)*$pageCount;
 $endLimit = $pageCount ;
 $firstPageNumber = $_GET['firstPageNumber'] ?? 0;
@@ -167,7 +167,7 @@ while ($rs = $result->fetch_object()) {
             <tr>
               <th scope="row">
                 <input type="hidden" name="pid[]" value="<?= $item->pid ?>">
-                <img src="<?= $item->thumbnail ?>" alt="" width="150">
+                <img src="<?= $item->thumbnail ?>" alt="" width="100">
               </th>
               <td><?= $item->name ?></td>
               <td><?= $item->price ?></td>
@@ -218,7 +218,38 @@ while ($rs = $result->fetch_object()) {
     </table>
     <div class="text-end">
       <button class="btn btn-primary">일괄수정</button>
-    </div>
+    </div>   
+
+    <div class="d-flex justify-content-center">
+      <ul class="pagination">
+         <?php
+        if($pageNumber > 1){
+          echo "<li class=\"page-item\"><a href=\"product_list.php?pageNumber=1\" class=\"page-link\" >처음</a></li>";
+          //이전
+          if($block_num > 1){
+            $prev = 1 + ($block_num - 2) * $block_ct;
+            echo "<li class=\"page-item\"><a href=\"product_list.php?pageNumber=$prev\" class=\"page-link\">이전</a></li>";
+          }
+        }
+       
+          for($i=$block_start;$i<=$block_end;$i++){
+            if($i == $pageNumber){
+              echo "<li class=\"page-item active\"><a href=\"product_list.php?pageNumber=$i\" class=\"page-link\">$i</a></li>";
+            }else{
+              echo "<li class=\"page-item\"><a href=\"product_list.php?pageNumber=$i\" class=\"page-link\">$i</a></li>";
+            }            
+          }  
+
+          if($pageNumber < $total_page){
+            if($total_block > $block_num){
+              $next = $block_num * $block_ct + 1;
+              echo "<li class=\"page-item\"><a href=\"product_list.php?pageNumber=$next\" class=\"page-item\">다음</a></li>";
+            }
+            echo "<li class=\"page-item\"><a href=\"product_list.php?pageNumber=$total_page\" class=\"page-link\">마지막</a></li>";
+          }        
+        ?>
+      </ul>
+    </div>    
   </form>
   <a href="product_up.php" class="btn btn-primary">상품 등록</a>
 </div>
