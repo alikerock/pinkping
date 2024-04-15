@@ -16,6 +16,13 @@ while ($irs = $imgrs->fetch_object()) {
     $rsArr[] = $irs;
 }
 
+$optSql = "SELECT * FROM product_options WHERE pid = {$pid}";
+$optrs = $mysqli -> query($optSql);
+
+while ($ors = $optrs->fetch_object()) {
+    $optArr[] = $ors;
+}
+
 
 
 ?>
@@ -30,21 +37,31 @@ while ($irs = $imgrs->fetch_object()) {
     <div class="thumbnail">
         <img src="<?= $rs->thumbnail; ?>" alt=""><!-- 대표이미지 -->
     </div>
+    <h3>추가 이미지</h3>
     <div class="addedImage"> <!-- 추가이미지 -->
         <?php
+        if(isset($rsArr)){            
             foreach($rsArr as $ra){
                 ?>
                 <img src="/pinkping/admin/upload/<?= $ra->filename; ?>" alt="">
                 <?php
             }
+        }
         ?>
     </div>
     <div class="description"><!-- 상세설명 -->
-
+        <?= $rs->content; ?>
     </div>
-    <!-- 옵션 -->
-    <!-- 컬러: 레드 / 재고 / 가격 -->
-    <!-- <img src="" alt=""> -->
+    <h3>옵션</h3>
+    <?php
+        if(isset($optArr)){
+            foreach($optArr as $oa){
+                echo $oa -> cate." : ".$oa -> option_name." / ".$oa -> option_cnt." / ".$oa -> option_price."<br/>";
+                echo "<img src=\"".$oa -> image_url."\" alt=\"\"><br/>";
+            }
+        }
+    ?>
+   
 </div>
 
 <?php
