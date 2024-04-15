@@ -12,8 +12,8 @@ $rs = $result->fetch_object();
 
 //카테고리 확인
 $cates = $rs->cate;
-
-if(strpos($cates,'A') == 0){
+/*
+if(strpos($cates,'A') !== false){
   $sql = "SELECT * FROM category where step = 1";
   $result = $mysqli->query($sql);
   $row = $result->fetch_object();
@@ -31,9 +31,45 @@ if(strpos($cates,'C')){
   $row = $result->fetch_object();
   $cate3 = $row;
 }
-print_r($cate1); echo('<br>');
-print_r($cate2); echo('<br>');
-print_r($cate3);
+*/
+// 각 단계에 대한 쿼리 준비
+$sql = "SELECT * FROM category WHERE step IN (";
+$steps = [];
+
+if(strpos($cates, 'A') !== false) {
+  $steps[] = 1;
+}
+if(strpos($cates, 'B') !== false) {
+  $steps[] = 2;
+}
+if(strpos($cates, 'C') !== false) {
+  $steps[] = 3;
+}
+
+$sql .= implode(",", $steps) . ")";
+$result = $mysqli->query($sql);
+
+// 결과 처리
+while ($row = $result->fetch_object()) {
+    switch ($row->step) {
+        case 1:
+            $cate1 = $row;
+            break;
+        case 2:
+            $cate2 = $row;
+            break;
+        case 3:
+            $cate3 = $row;
+            break;
+        default:
+            // 다른 단계에 대한 처리
+            break;
+    }
+}
+
+print_r($cate1).'<br>';
+print_r($cate2).'<br>';
+print_r($cate3).'<br>';
 
 
 
