@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- 생성 시간: 24-04-12 11:14
+-- 생성 시간: 24-04-15 11:15
 -- 서버 버전: 10.4.32-MariaDB
 -- PHP 버전: 8.2.12
 
@@ -44,7 +44,7 @@ CREATE TABLE `admins` (
 --
 
 INSERT INTO `admins` (`idx`, `userid`, `email`, `username`, `passwd`, `regdate`, `level`, `last_login`, `end_login_date`) VALUES
-(4, 'admin', 'admin@pinkping.com', '관리자', '33275a8aa48ea918bd53a9181aa975f15ab0d0645398f5918a006d08675c1cb27d5c645dbd084eee56e675e25ba4019f2ecea37ca9e2995b49fcb12c096a032e', '2024-04-08 14:59:11', 100, '2024-04-12 09:32:12', NULL);
+(4, 'admin', 'admin@pinkping.com', '관리자', '33275a8aa48ea918bd53a9181aa975f15ab0d0645398f5918a006d08675c1cb27d5c645dbd084eee56e675e25ba4019f2ecea37ca9e2995b49fcb12c096a032e', '2024-04-08 14:59:11', 100, '2024-04-15 11:38:01', NULL);
 
 -- --------------------------------------------------------
 
@@ -119,7 +119,12 @@ INSERT INTO `products` (`pid`, `name`, `cate`, `content`, `thumbnail`, `price`, 
 (14, '상품명3', 'A0002', '<p>설명3</p>', '/pinkping/admin/upload/20240412053356156422.jpg', 5000, 0, 0, 0, 0, 1, 1, 0, 0, 2, 'admin', '2024-06-01 00:00:00', '2024-04-12 12:33:56', 1, 0, NULL),
 (15, '상품명1', 'A0001B0001C0001', '\r\n설명 1\r\n\r\n', '/pinkping/admin/upload/20240411094455109948.jpg', 100000, 0, 0, 0, 0, 1, 1, 0, 0, 1, 'admin', '2024-04-11 00:00:00', '2024-04-11 16:45:40', 1, 0, NULL),
 (16, '상품명2', 'A0001B0001C0001', '<p>설명2</p>', '/pinkping/admin/upload/20240411102030943193.jpg', 15000, 0, 0, 0, 0, 1, 1, 0, 0, 2, 'admin', '2024-04-18 00:00:00', '2024-04-11 17:20:30', 0, 0, NULL),
-(17, '상품명3', 'A0002', '<p>설명3</p>', '/pinkping/admin/upload/20240412053356156422.jpg', 5000, 0, 0, 0, 0, 1, 1, 0, 0, 2, 'admin', '2024-06-01 00:00:00', '2024-04-12 12:33:56', 1, 0, NULL);
+(17, '상품명3', 'A0002', '<p>설명3</p>', '/pinkping/admin/upload/20240412053356156422.jpg', 5000, 0, 0, 0, 0, 1, 1, 0, 0, 2, 'admin', '2024-06-01 00:00:00', '2024-04-12 12:33:56', 1, 0, NULL),
+(18, '옵션 테스트', 'A0001B0001C0001', '옵션 테스트 설명', '/pinkping/admin/upload/20240415061019208604.png', 12000, 0, 0, 0, 0, 0, 1, 0, 0, 2, 'admin', '2024-05-10 00:00:00', '2024-04-15 13:10:19', 0, 0, NULL),
+(19, '옵션 테스트2', 'A0001', '<p>ㅁㄴㅇㄹ</p>', '/pinkping/admin/upload/20240415061131208852.jpg', 12000, 0, 0, 0, 0, 0, 1, 0, 0, 2, 'admin', '2024-04-06 00:00:00', '2024-04-15 13:11:31', 0, 0, NULL),
+(20, '옵션 테스트3', 'A0001', '<p>ㅁㄴㅇㄹ</p>', '/pinkping/admin/upload/20240415061341830924.jpg', 12000, 0, 0, 0, 0, 0, 1, 0, 0, 1, 'admin', '2024-04-26 00:00:00', '2024-04-15 13:13:41', 0, 0, NULL),
+(21, '옵션 테스트4', 'A0001', '<p>ㅁㄴㅇㄹ</p>', '/pinkping/admin/upload/20240415061527117318.jpg', 12000, 0, 0, 0, 0, 0, 1, 1, 0, 1, 'admin', '2024-04-27 00:00:00', '2024-04-15 13:15:27', 0, 0, NULL),
+(22, '옵션 테스트5', 'A0001', '<p>ㅁㄴㅇㄹ</p>', '/pinkping/admin/upload/20240415093325181125.jpg', 12000, 0, 0, 0, 0, 0, 0, 1, 0, 1, 'admin', '2024-04-27 00:00:00', '2024-04-15 16:33:25', 0, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -150,7 +155,44 @@ INSERT INTO `product_image_table` (`imgid`, `pid`, `userid`, `filename`, `regdat
 (14, 2, 'admin', '20240411102025195246.jpg', '2024-04-11 17:20:25', 1),
 (15, 2, 'admin', '20240411102025611566.jpg', '2024-04-11 17:20:25', 1),
 (16, NULL, 'admin', '20240412053122130407.jpg', '2024-04-12 12:31:22', 1),
-(17, NULL, 'admin', '20240412053122183024.jpg', '2024-04-12 12:31:22', 1);
+(17, NULL, 'admin', '20240412053122183024.jpg', '2024-04-12 12:31:22', 1),
+(18, 18, 'admin', '20240415060911391403.jpg', '2024-04-15 13:09:11', 1),
+(19, 18, 'admin', '20240415060911133914.jpg', '2024-04-15 13:09:11', 1),
+(20, 19, 'admin', '20240415061101321269.jpg', '2024-04-15 13:11:01', 1),
+(21, 19, 'admin', '20240415061101201028.png', '2024-04-15 13:11:01', 1),
+(22, 20, 'admin', '20240415061322187228.png', '2024-04-15 13:13:22', 1),
+(23, 20, 'admin', '20240415061322149663.jpg', '2024-04-15 13:13:22', 1),
+(24, 21, 'admin', '20240415061508995368.jpg', '2024-04-15 13:15:08', 1),
+(25, 21, 'admin', '20240415061508951755.jpg', '2024-04-15 13:15:08', 1),
+(26, 22, 'admin', '20240415093302208658.jpg', '2024-04-15 16:33:02', 1),
+(27, 22, 'admin', '20240415093302131934.jpg', '2024-04-15 16:33:02', 1);
+
+-- --------------------------------------------------------
+
+--
+-- 테이블 구조 `product_options`
+--
+
+CREATE TABLE `product_options` (
+  `poid` int(11) NOT NULL,
+  `pid` int(11) DEFAULT NULL,
+  `cate` varchar(100) DEFAULT NULL,
+  `option_name` varchar(100) DEFAULT NULL,
+  `option_cnt` int(11) DEFAULT NULL,
+  `option_price` int(11) DEFAULT NULL,
+  `image_url` varchar(300) DEFAULT NULL,
+  `status` tinyint(4) DEFAULT 1
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- 테이블의 덤프 데이터 `product_options`
+--
+
+INSERT INTO `product_options` (`poid`, `pid`, `cate`, `option_name`, `option_cnt`, `option_price`, `image_url`, `status`) VALUES
+(10, 21, '', '레드', 100, 10000, '/pinkping/admin/upload/optiondata/20240415061527778904.jpg', 1),
+(11, 21, '', '블루', 100, 12000, '/pinkping/admin/upload/optiondata/20240415061527214105.jpg', 1),
+(12, 22, '컬러', '레드', 100, 10000, '/pinkping/admin/upload/optiondata/20240415093325172771.png', 1),
+(13, 22, '컬러', '블루', 100, 12000, '/pinkping/admin/upload/optiondata/20240415093325115012.jpg', 1);
 
 --
 -- 덤프된 테이블의 인덱스
@@ -181,6 +223,13 @@ ALTER TABLE `product_image_table`
   ADD PRIMARY KEY (`imgid`);
 
 --
+-- 테이블의 인덱스 `product_options`
+--
+ALTER TABLE `product_options`
+  ADD PRIMARY KEY (`poid`),
+  ADD KEY `newtable_pid_IDX` (`pid`) USING BTREE;
+
+--
 -- 덤프된 테이블의 AUTO_INCREMENT
 --
 
@@ -200,13 +249,19 @@ ALTER TABLE `category`
 -- 테이블의 AUTO_INCREMENT `products`
 --
 ALTER TABLE `products`
-  MODIFY `pid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `pid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- 테이블의 AUTO_INCREMENT `product_image_table`
 --
 ALTER TABLE `product_image_table`
-  MODIFY `imgid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `imgid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+
+--
+-- 테이블의 AUTO_INCREMENT `product_options`
+--
+ALTER TABLE `product_options`
+  MODIFY `poid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
