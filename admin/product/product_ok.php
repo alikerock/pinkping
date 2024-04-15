@@ -104,7 +104,7 @@ if ($result) { //상품 등록 하면
   $optionPrice1 = $_REQUEST['optionPrice1'] ?? ''; //옵션 가격
 
   if($_FILES['optionImage1']['name'][0]){ //옵션에 이미지 있다면
-    for($i=0; $i<count($_FILES['optionImage1']['name']); i++){
+    for($i=0; $i<count($_FILES['optionImage1']['name']); $i++){
       //파일 사이즈 검사
       if ($_FILES['optionImage1']['size'][$i] > 10240000) {
         echo "<script>
