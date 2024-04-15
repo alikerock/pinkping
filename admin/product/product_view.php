@@ -5,6 +5,17 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/pinkping/admin/inc/admin_check.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/pinkping/inc/header.php';
 
 ?>
+<style>
+    .thumbnail{
+        text-align: center;        
+    }
+    .thumbnail img{
+        max-width: 400px;
+    }
+    .addedImage img{
+        max-width: 200px;
+    }
+</style>
 
 <div class="container">
     <h2></h2> <!-- 제품명 -->
