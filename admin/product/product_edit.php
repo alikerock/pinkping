@@ -26,7 +26,7 @@ if(strpos($cates,'B')){
   $cate2 = $row;
 } 
 if(strpos($cates,'C')){
-  $sql = "SELECT * FROM category where step = 2";
+  $sql = "SELECT * FROM category where step = 3";
   $result = $mysqli->query($sql);
   $row = $result->fetch_object();
   $cate3 = $row;
