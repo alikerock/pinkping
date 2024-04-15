@@ -30,6 +30,7 @@ $status = $_POST['status'] ?? 0;
 $delivery_fee = $_POST['delivery_fee'] ?? 0;
 $addedImg_id = rtrim($_POST['product_image'], ',');
 
+$optionCate1 = $_POST['optionCate1'] ?? '';//옵션 분류
 
 
 
@@ -92,10 +93,19 @@ $pid = $mysqli->insert_id;
 
 if ($result) { //상품 등록 하면
 
-  if(strlen($addedImg_id) > 0){
+  if(strlen($addedImg_id) > 0){ //추가 이미지가 있다면 12,13
     $sql = "UPDATE product_image_table SET pid = {$pid} where imgid in ({$addedImg_id})";
     $result = $mysqli->query($sql);
   }
+
+  //추가 옵션이 있다면
+  $optionName1 = $_REQUEST['optionName1'] ?? ''; //옵션명
+  $optionCnt1 = $_REQUEST['optionCnt1'] ?? ''; //옵션 재고
+  $optionPrice1 = $_REQUEST['optionPrice1'] ?? ''; //옵션 가격
+  if(isset($optionName1)){
+    
+  }
+
 
   echo "<script>
   alert('상품 등록 완료');
