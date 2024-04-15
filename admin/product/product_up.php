@@ -170,7 +170,7 @@ while ($row = $result->fetch_object()) {
                 </tr>
               </tbody>
             </table>
-            <button class="btn btn-secondary optAddBtn">옵션 추가</button>
+            <button type="button" class="btn btn-secondary optAddBtn">옵션 추가</button>
           </td>
         </tr>
       </tbody>
@@ -186,6 +186,12 @@ while ($row = $result->fetch_object()) {
 
 <script>
   $(document).ready(function() {
+
+    $('.optAddBtn').click(function(){
+      let addHtml = $('#optionTr1').html();
+          addHtml =  `<tr>${addHtml}</tr>`;
+      $('#option1').append(addHtml);
+    });
 
     $('#product_save').on('submit', save);
 
