@@ -32,6 +32,7 @@ $addedImg_id = rtrim($_POST['product_image'], ',');
 
 
 
+
 //파일 사이즈 검사
 if ($_FILES['thumbnail']['size'] > 10240000) {
   echo "<script>

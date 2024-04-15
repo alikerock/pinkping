@@ -141,7 +141,14 @@ while ($row = $result->fetch_object()) {
         </tr>
         <!-- 옵션 컬러, 사이즈.. -->
         <tr>
-          <th>컬러</th>
+          <th>
+            <label for="optionCate1">옵션 선택</label>
+            <select name="optionCate1" id="optionCate1">
+              <option value="" selected disabled>선택</option>
+              <option value="컬러">컬러</option>
+              <option value="사이즈">사이즈</option>
+            </select>
+          </th>
           <td>
             <table class="table">
               <thead>
