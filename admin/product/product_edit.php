@@ -72,10 +72,6 @@ print_r($cate2).'<br>';
 print_r($cate3).'<br>';
 
 
-
-
-
-
 $imgSql = "SELECT * FROM product_image_table WHERE pid = {$pid}";
 $imgrs = $mysqli -> query($imgSql);
 
