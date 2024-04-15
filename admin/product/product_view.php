@@ -43,6 +43,8 @@ while ($irs = $imgrs->fetch_object()) {
 
     </div>
     <!-- 옵션 -->
+    <!-- 컬러: 레드 / 재고 / 가격 -->
+    <!-- <img src="" alt=""> -->
 </div>
 
 <?php
