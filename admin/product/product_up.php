@@ -139,10 +139,40 @@ while ($row = $result->fetch_object()) {
             </div>
           </td>
         </tr>
-        <!--
-          옵션
-          컬러, 사이즈..
-        -->
+        <!-- 옵션 컬러, 사이즈.. -->
+        <tr>
+          <th>컬러</th>
+          <td>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>옵션명</th>
+                  <th>재고</th>
+                  <th>가격</th>
+                  <th>이미지</th>
+                </tr>
+              </thead>
+              <tbody id="option1">
+                <tr id="optionTr1">
+                  <td>
+                    <input type="text" class="form-control" name="optionName1[]">
+                  </td>
+                  <td>
+                    <input type="text" class="form-control" name="optionCnt1[]">
+                  </td>
+                  <td class="d-flex">
+                    <input type="text" class="form-control" name="optionPrice1[]">
+                    <span>원</span>
+                  </td>
+                  <td>
+                    <input type="file" class="form-control" name="optionImage1[]">
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <button class="btn btn-secondary optAddBtn">옵션 추가</button>
+          </td>
+        </tr>
       </tbody>
     </table>
     <div class="text-end">
