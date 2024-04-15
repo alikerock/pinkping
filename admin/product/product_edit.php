@@ -4,7 +4,55 @@ session_start();
 include_once $_SERVER['DOCUMENT_ROOT'] . '/pinkping/admin/inc/admin_check.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/pinkping/inc/header.php';
 
-$pid = $_GET['pid'];
+
+$pid = $_GET['pid']; 
+$sql = "SELECT * FROM products WHERE pid = {$pid}";
+$result = $mysqli -> query($sql);
+$rs = $result->fetch_object();
+
+//카테고리 확인
+$cates = $rs->cate;
+
+if(strpos($cates,'A') == 0){
+  $sql = "SELECT * FROM category where step = 1";
+  $result = $mysqli->query($sql);
+  $row = $result->fetch_object();
+  $cate1 = $row;
+} 
+if(strpos($cates,'B')){
+  $sql = "SELECT * FROM category where step = 2";
+  $result = $mysqli->query($sql);
+  $row = $result->fetch_object();
+  $cate2 = $row;
+} 
+if(strpos($cates,'C')){
+  $sql = "SELECT * FROM category where step = 2";
+  $result = $mysqli->query($sql);
+  $row = $result->fetch_object();
+  $cate3 = $row;
+}
+print_r($cate1); echo('<br>');
+print_r($cate2); echo('<br>');
+print_r($cate3);
+
+
+
+
+
+
+$imgSql = "SELECT * FROM product_image_table WHERE pid = {$pid}";
+$imgrs = $mysqli -> query($imgSql);
+
+while ($irs = $imgrs->fetch_object()) {
+    $rsArr[] = $irs;
+}
+
+$optSql = "SELECT * FROM product_options WHERE pid = {$pid}";
+$optrs = $mysqli -> query($optSql);
+
+while ($ors = $optrs->fetch_object()) {
+    $optArr[] = $ors;
+}
 
 
 ?>
@@ -30,15 +78,7 @@ $pid = $_GET['pid'];
 
                 <select class="form-select" aria-label="대분류" id="cate1" name="cate1" required>
                   <option selected disabled>대분류</option>
-                  <?php
-                  foreach ($cate1 as $c1) {
-                  ?>
-
-                    <option value="<?= $c1->code; ?>"><?= $c1->name; ?></option>
-
-                  <?php
-                  }
-                  ?>
+                  <option value="A0001">컴퓨터</option>
 
                 </select>
               </div>
@@ -60,13 +100,13 @@ $pid = $_GET['pid'];
         <tr>
           <th>상품명</th>
           <td>
-            <input type="text" name="name" id="name" placeholder="상품명" required>
+            <input type="text" name="name" id="name" placeholder="상품명" value="<?= $rs -> name?>" required>
           </td>
         </tr>
         <tr>
           <th>상품가격</th>
           <td>
-            <input type="text" name="price" id="price" placeholder="상품가격" required>
+            <input type="text" name="price" id="price" placeholder="상품가격" value="<?= $rs -> price?>" required>
           </td>
         </tr>
         <tr>
@@ -103,13 +143,13 @@ $pid = $_GET['pid'];
         <tr>
           <th>상품 종료일</th>
           <td>
-            <input type="text" name="sale_end_date" id="sale_end_date">
+            <input type="text" name="sale_end_date" id="sale_end_date" value="<?= $rs -> sale_end_date?>">
           </td>
         </tr>
         <tr>
           <th>상품 설명</th>
           <td>
-            <textarea id="summernote" name="desc" class="w-100"></textarea>
+            <textarea id="summernote" name="desc" class="w-100"><?= $rs -> content?></textarea>
           </td>
         </tr>
         <tr>
