@@ -45,7 +45,16 @@ while ($ors = $optrs->fetch_object()) {
 <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 
+<style>
+  .thumbnail {
+    width: 300px;
+  }
+  .addedthumbs img, .opt_thumb{
+    width: 100px;
+  }
 
+
+</style>
 <div class="container">
   <h1>상품 수정</h1>
   <form action="product_edit_ok.php" method="POST" enctype="multipart/form-data" id="product_save">
@@ -142,9 +151,9 @@ while ($ors = $optrs->fetch_object()) {
           <th>위치지정</th>
           <td>
             <select class="form-select" name="locate" id="locate" aria-label="위치지정">
-              <option value="0">지정 안함</option>
-              <option value="1">1번 위치</option>
-              <option value="2">2번 위치</option>
+              <option value="0" <?php if($rs->locate == 0){ echo "selected";}?>>지정 안함</option>
+              <option value="1" <?php if($rs->locate == 1){ echo "selected";}?>>1번 위치</option>
+              <option value="2" <?php if($rs->locate == 2){ echo "selected";}?>>2번 위치</option>
             </select>
           </td>
         </tr>
@@ -163,6 +172,7 @@ while ($ors = $optrs->fetch_object()) {
         <tr>
           <th>대표 이미지</th>
           <td>
+            <img src="<?= $rs -> thumbnail?>" alt="" class="thumbnail">
             <input type="file" name="thumbnail" id="thumbnail" accept="image/*" required>
           </td>
         </tr>
@@ -172,6 +182,17 @@ while ($ors = $optrs->fetch_object()) {
             <input type="file" multiple name="upfile[]" id="upfile" class="d-none">
             <div>
               <button type="button" class="btn btn-secondary btn-sm" id="addImage">이미지 추가</button>
+            </div>
+            <div class="addedthumbs">
+            <?php
+            if(isset($rsArr)){            
+                foreach($rsArr as $ra){
+                    ?>
+                    <img src="/pinkping/admin/upload/<?= $ra->filename; ?>" alt="">
+                    <?php
+                }
+            }
+            ?>
             </div>
             <div id="addedimages" class="d-flex gap-3 p-3">
 
@@ -189,10 +210,16 @@ while ($ors = $optrs->fetch_object()) {
         <tr>
           <th>
             <label for="optionCate1">옵션 선택</label>
-            <select name="optionCate1" id="optionCate1">
-              <option value="" selected disabled>선택</option>
-              <option value="컬러">컬러</option>
-              <option value="사이즈">사이즈</option>
+
+            <?php
+            if(isset($optArr)){
+              $optionName = $optArr[0]->cate;
+            }
+            ?>
+              
+            <select name="optionCate1" id="optionCate1">              
+              <option value="컬러" <?php if($optionName == '컬러'){ echo 'selected';} ?>>컬러</option>
+              <option value="사이즈" <?php if($optionName == '사이즈'){ echo 'selected';} ?>>사이즈</option>
             </select>
           </th>
           <td>
@@ -206,21 +233,30 @@ while ($ors = $optrs->fetch_object()) {
                 </tr>
               </thead>
               <tbody id="option1">
-                <tr id="optionTr1">
-                  <td>
-                    <input type="text" class="form-control" name="optionName1[]">
-                  </td>
-                  <td>
-                    <input type="text" class="form-control" name="optionCnt1[]">
-                  </td>
-                  <td class="d-flex">
-                    <input type="text" class="form-control" name="optionPrice1[]">
-                    <span>원</span>
-                  </td>
-                  <td>
-                    <input type="file" class="form-control" name="optionImage1[]">
-                  </td>
-                </tr>
+              <?php
+                  if(isset($optArr)){
+                      foreach($optArr as $oa){
+                      ?>
+                          <tr id="optionTr1">
+                            <td>
+                              <input type="text" class="form-control" name="optionName1[]" value="<?= $oa -> option_name; ?>">
+                            </td>
+                            <td>
+                              <input type="text" class="form-control" name="optionCnt1[]" value="<?= $oa -> option_cnt; ?>">
+                            </td>
+                            <td class="d-flex">
+                              <input type="text" class="form-control" name="optionPrice1[]" value="<?= $oa -> option_price; ?>">
+                              <span>원</span>
+                            </td>
+                            <td>
+                              <input type="file"  name="optionImage1[]" value="<?= $oa -> image_url; ?>">
+                              <img src="<?= $oa -> image_url; ?>" alt="" class="opt_thumb">
+                            </td>
+                          </tr>
+                      <?php
+                      }
+                  }
+              ?>
               </tbody>
             </table>
             <button type="button" class="btn btn-secondary optAddBtn">옵션 추가</button>
