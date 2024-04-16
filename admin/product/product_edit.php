@@ -11,65 +11,16 @@ $result = $mysqli -> query($sql);
 $rs = $result->fetch_object();
 
 //카테고리 확인
-$cates = $rs->cate;
-/*
-if(strpos($cates,'A') !== false){
-  $sql = "SELECT * FROM category where step = 1";
-  $result = $mysqli->query($sql);
-  $row = $result->fetch_object();
-  $cate1 = $row;
-} 
-if(strpos($cates,'B')){
-  $sql = "SELECT * FROM category where step = 2";
-  $result = $mysqli->query($sql);
-  $row = $result->fetch_object();
-  $cate2 = $row;
-} 
-if(strpos($cates,'C')){
-  $sql = "SELECT * FROM category where step = 3";
-  $result = $mysqli->query($sql);
-  $row = $result->fetch_object();
-  $cate3 = $row;
-}
-*/
-// 각 단계에 대한 쿼리 준비
-$sql = "SELECT * FROM category WHERE step IN (";
-$steps = [];
+$cates = $rs->cate; //A0001B0001C0001  str_split(문자열, 개수);
+$cateArray = str_split($cates, 5);
 
-if(strpos($cates, 'A') !== false) {
-  $steps[] = 1;
+foreach($cateArray as $cate){
+  $sql = "SELECT * FROM category WHERE code = '{$cate}'";
+  $result = $mysqli -> query($sql);
+  while($caters = $result->fetch_object()){
+    $cateArr[] = $caters;
+  }
 }
-if(strpos($cates, 'B') !== false) {
-  $steps[] = 2;
-}
-if(strpos($cates, 'C') !== false) {
-  $steps[] = 3;
-}
-
-$sql .= implode(",", $steps) . ")";
-$result = $mysqli->query($sql);
-
-// 결과 처리
-while ($row = $result->fetch_object()) {
-    switch ($row->step) {
-        case 1:
-            $cate1 = $row;
-            break;
-        case 2:
-            $cate2 = $row;
-            break;
-        case 3:
-            $cate3 = $row;
-            break;
-        default:
-            // 다른 단계에 대한 처리
-            break;
-    }
-}
-
-print_r($cate1).'<br>';
-print_r($cate2).'<br>';
-print_r($cate3).'<br>';
 
 
 $imgSql = "SELECT * FROM product_image_table WHERE pid = {$pid}";
@@ -100,11 +51,20 @@ while ($ors = $optrs->fetch_object()) {
   <form action="product_edit_ok.php" method="POST" enctype="multipart/form-data" id="product_save">
     <input type="hidden" name="product_image" id="product_image_id">
     <input type="hidden" name="contents" id="contents">
+    <input type="hidden" name="pid" value="<?= $pid; ?>">
+    <input type="hidden" name="orgcate" value="<?= $cates; ?>">
     <table class="table">
       <tbody>
         <tr>
           <th>분류선택</th>
           <td>
+            <div>
+              <?php
+                foreach($cateArr as $cate){
+                  echo $cate-> name. '-';
+                }
+              ?>
+            </div>
             <div class="category row">
               <div class="col">
 
