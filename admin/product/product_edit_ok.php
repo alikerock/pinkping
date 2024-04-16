@@ -106,56 +106,60 @@ if ($result) { //상품 등록 하면
   }
 
   //추가 옵션이 있다면
+  
   $optionName1 = $_REQUEST['optionName1'] ?? ''; //옵션명
-  $optionCnt1 = $_REQUEST['optionCnt1'] ?? ''; //옵션 재고
-  $optionPrice1 = $_REQUEST['optionPrice1'] ?? ''; //옵션 가격
-
-  if($_FILES['optionImage1']['name'][0]){ //옵션에 이미지 있다면
-    for($i=0; $i<count($_FILES['optionImage1']['name']); $i++){
-      //파일 사이즈 검사
-      if ($_FILES['optionImage1']['size'][$i] > 10240000) {
-        echo "<script>
-          alert('10MB 이하만 업로드해주세요');
-          history.back();
-        </script>";
-        exit;
-      }
-      //이미지 여부 검사
-      if (strpos($_FILES['optionImage1']['type'][$i], 'image') === false) {
-        echo "<script>
-          alert('이미지만 업로드해주세요');
-          history.back();
-        </script>";
-        exit;
-      }
-      //파일 업로드
-      $save_dir = $_SERVER['DOCUMENT_ROOT'] . '/pinkping/admin/upload/optiondata/';
-      $fiename = $_FILES["optionImage1"]["name"][$i]; //insta.jpg
-      $ext = pathinfo($fiename, PATHINFO_EXTENSION); //jpg
-      $newfilename = date("YmdHis") . substr(rand(), 0, 6); //202404111137.123123 -> 202404111137123123 
-      $savefile = $newfilename . '.' . $ext;  //202404111137123123.jpg
-
-      if (move_uploaded_file($_FILES["optionImage1"]["tmp_name"][$i], $save_dir . $savefile)) {
-        $upload_option_image[] = "/pinkping/admin/upload/optiondata/" . $savefile;
-      } else {
-        echo "<script>
-        alert('썸네일 등록에 실패했습니다. 관리자에게 문의해주세요');
-        history.back();
-        </script>";
-        exit;
-      }
-    } //for 반복문
-  }
-
 
   if(isset($optionName1)){
+    $optionCnt1 = $_REQUEST['optionCnt1'] ?? ''; //옵션 재고
+    $optionPrice1 = $_REQUEST['optionPrice1'] ?? ''; //옵션 가격
+
+    if($_FILES['optionImage1']['name'][0]){ //옵션에 이미지 있다면
+      for($i=0; $i<count($_FILES['optionImage1']['name']); $i++){
+        //파일 사이즈 검사
+        if ($_FILES['optionImage1']['size'][$i] > 10240000) {
+          echo "<script>
+            alert('10MB 이하만 업로드해주세요');
+            history.back();
+          </script>";
+          exit;
+        }
+        //이미지 여부 검사
+        if (strpos($_FILES['optionImage1']['type'][$i], 'image') === false) {
+          echo "<script>
+            alert('이미지만 업로드해주세요');
+            history.back();
+          </script>";
+          exit;
+        }
+        //파일 업로드
+        $save_dir = $_SERVER['DOCUMENT_ROOT'] . '/pinkping/admin/upload/optiondata/';
+        $fiename = $_FILES["optionImage1"]["name"][$i]; //insta.jpg
+        $ext = pathinfo($fiename, PATHINFO_EXTENSION); //jpg
+        $newfilename = date("YmdHis") . substr(rand(), 0, 6); //202404111137.123123 -> 202404111137123123 
+        $savefile = $newfilename . '.' . $ext;  //202404111137123123.jpg
+
+        if (move_uploaded_file($_FILES["optionImage1"]["tmp_name"][$i], $save_dir . $savefile)) {
+          $upload_option_image[] = "/pinkping/admin/upload/optiondata/" . $savefile;
+        } else {
+          echo "<script>
+          alert('썸네일 등록에 실패했습니다. 관리자에게 문의해주세요');
+          history.back();
+          </script>";
+          exit;
+        }
+      } //for 반복문
+    }
+    
     $x = 0;
     foreach($optionName1 as $opt){
-      $optsql = "INSERT INTO product_options 
-      (pid, cate, option_name, option_cnt, option_price, image_url) 
-      VALUES (
-        {$pid}, '{$optionCate1}', '{$opt}', '{$optionCnt1[$x]}', '{$optionPrice1[$x]}', '{$upload_option_image[$x]}'
-      )";
+      $optsql = "UPDATE product_options SET 
+        cate='{$optionCate1}',
+        option_name='{$opt}', 
+        option_cnt='{$optionCnt1[$x]}', 
+        option_price={$optionPrice1[$x]}', 
+        image_url='{$upload_option_image[$x]}'
+        WHERE pid={$pid}";
+
       $optresult = $mysqli -> query($optsql);
       $x++;
     }    
