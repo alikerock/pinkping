@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- 생성 시간: 24-04-15 11:15
+-- 생성 시간: 24-04-16 06:20
 -- 서버 버전: 10.4.32-MariaDB
 -- PHP 버전: 8.2.12
 
@@ -44,7 +44,7 @@ CREATE TABLE `admins` (
 --
 
 INSERT INTO `admins` (`idx`, `userid`, `email`, `username`, `passwd`, `regdate`, `level`, `last_login`, `end_login_date`) VALUES
-(4, 'admin', 'admin@pinkping.com', '관리자', '33275a8aa48ea918bd53a9181aa975f15ab0d0645398f5918a006d08675c1cb27d5c645dbd084eee56e675e25ba4019f2ecea37ca9e2995b49fcb12c096a032e', '2024-04-08 14:59:11', 100, '2024-04-15 11:38:01', NULL);
+(4, 'admin', 'admin@pinkping.com', '관리자', '33275a8aa48ea918bd53a9181aa975f15ab0d0645398f5918a006d08675c1cb27d5c645dbd084eee56e675e25ba4019f2ecea37ca9e2995b49fcb12c096a032e', '2024-04-08 14:59:11', 100, '2024-04-16 09:31:01', NULL);
 
 -- --------------------------------------------------------
 
@@ -72,6 +72,26 @@ INSERT INTO `category` (`cid`, `code`, `pcode`, `name`, `step`) VALUES
 (15, 'B0002', 'A0001', '삼성', 2),
 (16, 'C0003', 'B0001', 'LG', 3),
 (17, 'A0003', '', '테스트', 1);
+
+-- --------------------------------------------------------
+
+--
+-- 테이블 구조 `coupons`
+--
+
+CREATE TABLE `coupons` (
+  `cid` int(11) NOT NULL,
+  `coupon_name` varchar(100) DEFAULT NULL COMMENT '쿠폰명',
+  `coupon_image` varchar(100) DEFAULT NULL COMMENT '쿠폰이미지',
+  `coupon_type` tinyint(4) DEFAULT NULL COMMENT '쿠폰타입',
+  `coupon_price` double DEFAULT NULL COMMENT '할인금액',
+  `coupon_ratio` double DEFAULT NULL COMMENT '할인비율',
+  `status` tinyint(4) DEFAULT 0 COMMENT '상태',
+  `regdate` datetime DEFAULT NULL COMMENT '등록일',
+  `userid` varchar(100) DEFAULT NULL COMMENT '등록한유저',
+  `max_value` double DEFAULT NULL COMMENT '최대할인금액',
+  `use_min_price` double DEFAULT NULL COMMENT '최소사용금액'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -123,8 +143,9 @@ INSERT INTO `products` (`pid`, `name`, `cate`, `content`, `thumbnail`, `price`, 
 (18, '옵션 테스트', 'A0001B0001C0001', '옵션 테스트 설명', '/pinkping/admin/upload/20240415061019208604.png', 12000, 0, 0, 0, 0, 0, 1, 0, 0, 2, 'admin', '2024-05-10 00:00:00', '2024-04-15 13:10:19', 0, 0, NULL),
 (19, '옵션 테스트2', 'A0001', '<p>ㅁㄴㅇㄹ</p>', '/pinkping/admin/upload/20240415061131208852.jpg', 12000, 0, 0, 0, 0, 0, 1, 0, 0, 2, 'admin', '2024-04-06 00:00:00', '2024-04-15 13:11:31', 0, 0, NULL),
 (20, '옵션 테스트3', 'A0001', '<p>ㅁㄴㅇㄹ</p>', '/pinkping/admin/upload/20240415061341830924.jpg', 12000, 0, 0, 0, 0, 0, 1, 0, 0, 1, 'admin', '2024-04-26 00:00:00', '2024-04-15 13:13:41', 0, 0, NULL),
-(21, '옵션 테스트4', 'A0001', '<p>ㅁㄴㅇㄹ</p>', '/pinkping/admin/upload/20240415061527117318.jpg', 12000, 0, 0, 0, 0, 0, 1, 1, 0, 1, 'admin', '2024-04-27 00:00:00', '2024-04-15 13:15:27', 0, 0, NULL),
-(22, '옵션 테스트5', 'A0001', '<p>ㅁㄴㅇㄹ</p>', '/pinkping/admin/upload/20240415093325181125.jpg', 12000, 0, 0, 0, 0, 0, 0, 1, 0, 1, 'admin', '2024-04-27 00:00:00', '2024-04-15 16:33:25', 0, 0, NULL);
+(21, '옵션 테스트4 - 수정4', 'A0001', '<p>ㅁㄴㅇㄹ - 수정4</p>', '/pinkping/admin/upload/20240416053252648887.png', 12000, 0, 0, 0, 0, 0, 1, 1, 1, 2, 'admin', '2024-04-27 00:00:00', '2024-04-16 12:32:52', 0, 0, NULL),
+(22, '옵션 테스트5 - 수정2', '', '<p>ㅁㄴㅇㄹ - 수정2</p>', '/pinkping/admin/upload/20240416050858857797.jpg', 15000, 0, 0, 0, 0, 1, 0, 0, 1, 2, 'admin', '2024-04-30 00:00:00', '2024-04-16 12:08:58', 0, 0, NULL),
+(23, '옵션 테스트 6', 'A0002', '<p>설명 테스트</p>', '/pinkping/admin/upload/20240416052245763666.jpg', 12000, 0, 0, 0, 0, 1, 1, 0, 0, 2, 'admin', '2024-04-30 00:00:00', '2024-04-16 12:22:45', 0, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -165,7 +186,13 @@ INSERT INTO `product_image_table` (`imgid`, `pid`, `userid`, `filename`, `regdat
 (24, 21, 'admin', '20240415061508995368.jpg', '2024-04-15 13:15:08', 1),
 (25, 21, 'admin', '20240415061508951755.jpg', '2024-04-15 13:15:08', 1),
 (26, 22, 'admin', '20240415093302208658.jpg', '2024-04-15 16:33:02', 1),
-(27, 22, 'admin', '20240415093302131934.jpg', '2024-04-15 16:33:02', 1);
+(27, 22, 'admin', '20240415093302131934.jpg', '2024-04-15 16:33:02', 1),
+(28, 22, 'admin', '20240416045817135679.png', '2024-04-16 11:58:17', 1),
+(29, 22, 'admin', '20240416050647206653.jpg', '2024-04-16 12:06:47', 1),
+(30, 21, 'admin', '20240416051548140335.jpg', '2024-04-16 12:15:48', 1),
+(31, NULL, 'admin', '20240416051711643010.jpg', '2024-04-16 12:17:11', 1),
+(32, 23, 'admin', '20240416052223135351.jpg', '2024-04-16 12:22:23', 1),
+(33, 23, 'admin', '20240416052224619383.jpg', '2024-04-16 12:22:24', 1);
 
 -- --------------------------------------------------------
 
@@ -189,10 +216,28 @@ CREATE TABLE `product_options` (
 --
 
 INSERT INTO `product_options` (`poid`, `pid`, `cate`, `option_name`, `option_cnt`, `option_price`, `image_url`, `status`) VALUES
-(10, 21, '', '레드', 100, 10000, '/pinkping/admin/upload/optiondata/20240415061527778904.jpg', 1),
-(11, 21, '', '블루', 100, 12000, '/pinkping/admin/upload/optiondata/20240415061527214105.jpg', 1),
+(10, 21, '컬러', '블루수정2', 200, 20000, '/pinkping/admin/upload/optiondata/20240416053252531507.jpg', 1),
+(11, 21, '컬러', '블루수정2', 200, 20000, '/pinkping/admin/upload/optiondata/20240416053252531507.jpg', 1),
 (12, 22, '컬러', '레드', 100, 10000, '/pinkping/admin/upload/optiondata/20240415093325172771.png', 1),
-(13, 22, '컬러', '블루', 100, 12000, '/pinkping/admin/upload/optiondata/20240415093325115012.jpg', 1);
+(13, 22, '컬러', '블루', 100, 12000, '/pinkping/admin/upload/optiondata/20240415093325115012.jpg', 1),
+(14, 23, '컬러', '레드', 100, 200, '/pinkping/admin/upload/optiondata/20240416052245112937.jpg', 1),
+(15, 23, '컬러', '블루', 200, 300, '/pinkping/admin/upload/optiondata/20240416052245101851.jpg', 1);
+
+-- --------------------------------------------------------
+
+--
+-- 테이블 구조 `user_coupons`
+--
+
+CREATE TABLE `user_coupons` (
+  `ucid` int(11) NOT NULL,
+  `couponid` int(11) DEFAULT NULL COMMENT '쿠폰아이디',
+  `userid` varchar(100) DEFAULT NULL COMMENT '유저아이디',
+  `status` int(11) DEFAULT 1 COMMENT '상태',
+  `use_max_date` datetime DEFAULT NULL COMMENT '사용기한',
+  `regdate` datetime DEFAULT NULL COMMENT '등록일',
+  `reason` varchar(100) DEFAULT NULL COMMENT '쿠폰취득사유'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- 덤프된 테이블의 인덱스
@@ -208,6 +253,12 @@ ALTER TABLE `admins`
 -- 테이블의 인덱스 `category`
 --
 ALTER TABLE `category`
+  ADD PRIMARY KEY (`cid`);
+
+--
+-- 테이블의 인덱스 `coupons`
+--
+ALTER TABLE `coupons`
   ADD PRIMARY KEY (`cid`);
 
 --
@@ -230,6 +281,12 @@ ALTER TABLE `product_options`
   ADD KEY `newtable_pid_IDX` (`pid`) USING BTREE;
 
 --
+-- 테이블의 인덱스 `user_coupons`
+--
+ALTER TABLE `user_coupons`
+  ADD PRIMARY KEY (`ucid`);
+
+--
 -- 덤프된 테이블의 AUTO_INCREMENT
 --
 
@@ -246,22 +303,34 @@ ALTER TABLE `category`
   MODIFY `cid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
+-- 테이블의 AUTO_INCREMENT `coupons`
+--
+ALTER TABLE `coupons`
+  MODIFY `cid` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- 테이블의 AUTO_INCREMENT `products`
 --
 ALTER TABLE `products`
-  MODIFY `pid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `pid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- 테이블의 AUTO_INCREMENT `product_image_table`
 --
 ALTER TABLE `product_image_table`
-  MODIFY `imgid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `imgid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- 테이블의 AUTO_INCREMENT `product_options`
 --
 ALTER TABLE `product_options`
-  MODIFY `poid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `poid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- 테이블의 AUTO_INCREMENT `user_coupons`
+--
+ALTER TABLE `user_coupons`
+  MODIFY `ucid` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
