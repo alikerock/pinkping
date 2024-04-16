@@ -69,8 +69,7 @@ while ($ors = $optrs->fetch_object()) {
               <div class="col">
 
                 <select class="form-select" aria-label="대분류" id="cate1" name="cate1" required>
-                  <option selected disabled>대분류</option>
-                  <option value="A0001">컴퓨터</option>
+                  <option selected disabled>대분류</option>                 
 
                 </select>
               </div>
@@ -104,19 +103,36 @@ while ($ors = $optrs->fetch_object()) {
         <tr>
           <th>전시옵션</th>
           <td>
-            <input class="form-check-input" type="checkbox" name="ismain" value="1" id="ismain">
+            <input class="form-check-input" type="checkbox" name="ismain" value="1" id="ismain" 
+              <?php 
+                if($rs->ismain){ echo "checked";} 
+                ?>
+            >
+
             <label class="form-check-label" for="ismain">
               메인
             </label>
-            <input class="form-check-input" type="checkbox" name="isnew" value="1" id="isnew">
+            <input class="form-check-input" type="checkbox" name="isnew" value="1" id="isnew"
+              <?php 
+                if($rs->isnew){ echo "checked";} 
+                ?>
+            >
             <label class="form-check-label" for="isnew">
               신제품
             </label>
-            <input class="form-check-input" type="checkbox" name="isbest" value="1" id="isbest">
+            <input class="form-check-input" type="checkbox" name="isbest" value="1" id="isbest"
+              <?php 
+                if($rs->isbest){ echo "checked";} 
+              ?>
+            >
             <label class="form-check-label" for="isbest">
               베스트
             </label>
-            <input class="form-check-input" type="checkbox" name="isrecom" value="1" id="isrecom">
+            <input class="form-check-input" type="checkbox" name="isrecom" value="1" id="isrecom"
+              <?php 
+                if($rs->isrecom){ echo "checked";} 
+              ?>
+            >
             <label class="form-check-label" for="isrecom">
               추천
             </label>
