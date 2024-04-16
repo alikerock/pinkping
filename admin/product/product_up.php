@@ -111,13 +111,13 @@ while ($row = $result->fetch_object()) {
         <tr>
           <th>상품 설명</th>
           <td>
-            <textarea id="summernote" name="desc" class="w-100"></textarea>
+            <div id="summernote" name="desc" class="w-100" ></div>
           </td>
         </tr>
         <tr>
           <th>대표 이미지</th>
           <td>
-            <input type="file" name="thumbnail" id="thumbnail" accept="image/*" required>
+            <input type="file" name="thumbnail" id="thumbnail" accept="image/*">
           </td>
         </tr>
         <tr>
@@ -205,7 +205,20 @@ while ($row = $result->fetch_object()) {
     function save() {
       let markupStr = $('#summernote').summernote('code');
       let contents = encodeURIComponent(markupStr);
-      $('#contents').val(contents);
+
+      if(!$('#thumbnail').val()){
+        alert('대표 이미지를 등록하세요');       
+        return false;
+      }
+      if ($('#summernote').summernote('isEmpty')) {
+        alert('상품 설명을 입력하세요');
+        $('#summernote').summernote('focus');
+        return false;
+      }
+      if(!$('#upfile').val()){
+        alert('최소 하나의 추가 이미지를 등록하세요.');
+      }
+
     }
 
     $('#summernote').summernote({
