@@ -55,10 +55,10 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/pinkping/inc/header.php';
                 </tr>                
                 <tr>
                     <th scope="row">
-                        <label for="coupon_ratio">상태</label>
+                        <label for="status">상태</label>
                     </th>
                     <td>
-                       <select name="coupon_ratio" id="coupon_ratio" class="form-select" >
+                       <select name="status" id="status" class="form-select" >
                             <option value="1" selected>대기</option>
                             <option value="2">사용중</option>
                             <option value="3">폐기</option>
