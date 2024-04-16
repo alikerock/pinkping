@@ -11,7 +11,7 @@ $cate3 = $_POST['cate3'] ?? '';
 $orgcate = $_POST['orgcate'] ?? '';
 $cate = $cate1 . $cate2 . $cate3 ;
 
-if(!isset($cate)){
+if(strlen($cate) == 0){
   $cate = $orgcate;
 }
 
@@ -73,7 +73,7 @@ if (move_uploaded_file($_FILES["thumbnail"]["tmp_name"], $save_dir . $savefile))
   </script>";
   exit;
 }
-$sql = "UPDATE board SET 
+$sql = "UPDATE products SET 
   name= '{$name}',
   cate= '{$cate}',
   content = '{$content}',
@@ -93,10 +93,10 @@ $sql = "UPDATE board SET
   reg_date = now(),
   status = '{$status}',
   delivery_fee = '{$delivery_fee}'
-  WHERE pid = {pid}";
+  WHERE pid = {$pid}";
 
 $result = $mysqli->query($sql);
-$pid = $mysqli->insert_id;
+//$pid = $mysqli->insert_id;
 
 if ($result) { //상품 등록 하면
 
@@ -149,17 +149,18 @@ if ($result) { //상품 등록 하면
         }
       } //for 반복문
     }
-    
+
     $x = 0;
     foreach($optionName1 as $opt){
       $optsql = "UPDATE product_options SET 
         cate='{$optionCate1}',
         option_name='{$opt}', 
         option_cnt='{$optionCnt1[$x]}', 
-        option_price={$optionPrice1[$x]}', 
+        option_price='{$optionPrice1[$x]}', 
         image_url='{$upload_option_image[$x]}'
         WHERE pid={$pid}";
 
+      echo $optsql;
       $optresult = $mysqli -> query($optsql);
       $x++;
     }    
@@ -168,11 +169,11 @@ if ($result) { //상품 등록 하면
 
   echo "<script>
   alert('상품 등록 완료');
-  location.href = '/pinkping/admin/product/product_list.php';
+//location.href = '/pinkping/admin/product/product_list.php';
   </script>";
 } else {
   echo "<script>
   alert('상품 등록 실패');
-  history.back();
+history.back();
   </script>";
 }
