@@ -44,4 +44,28 @@ if ($_FILES['coupon_image']['size'] > 10240000) {
     exit;
   }
 
-  $sql = "INSERT INTO coupons"
+  $sql = "INSERT INTO coupons (coupon_name,coupon_image,coupon_type,coupon_price,coupon_ratio,status,regdate,userid,max_value,use_min_price) VALUES (
+    '{$coupon_name}', 
+    '{$coupon_image}', 
+    '{$coupon_type}', 
+    '{$coupon_price}', 
+    '{$coupon_ratio}', 
+    '{$status}', 
+    now(), 
+    '{$_SESSION['AUID']}', 
+    '{$max_value}', 
+    '{$use_min_price}'
+    )";
+
+    $result = $mysqli -> query($sql);
+    if($result ){
+        echo "<script>
+        alert('쿠폰등록 완료');
+        location.href = '/pinkping/admin/coupon/coupon_list.php';
+        </script>";
+    } else{
+        echo "<script>
+        alert('쿠폰등록 실패');
+        history.back();
+        </script>";
+    }

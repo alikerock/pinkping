@@ -84,6 +84,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/pinkping/inc/header.php';
                 </tr>                
             </tbody>
         </table>
+        <button class="btn btn-primary">쿠폰 등록</button>
     </form>
 </div>
 <script>
