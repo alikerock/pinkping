@@ -150,19 +150,29 @@ if ($result) { //상품 등록 하면
       } //for 반복문
     }
 
+    // $pid에 대한 $poid 값을 조회하는 쿼리
+    $pid_query = "SELECT poid FROM product_options WHERE pid = {$pid}";
+    $pid_result = $mysqli->query($pid_query);
+    $poid_array = array(); // 조회한 poid 값을 저장할 배열 초기화
+
+    // 조회 결과를 배열에 저장
+    while ($row = $pid_result->fetch_assoc()) {
+        $poid_array[] = $row['poid'];
+    }
+
     $x = 0;
     foreach($optionName1 as $opt){
-      $optsql = "UPDATE product_options SET 
-        cate='{$optionCate1}',
-        option_name='{$opt}', 
-        option_cnt='{$optionCnt1[$x]}', 
-        option_price='{$optionPrice1[$x]}', 
-        image_url='{$upload_option_image[$x]}'        
-        WHERE pid={$pid}";
-
-      echo $optsql;
-      $optresult = $mysqli -> query($optsql);
-      $x++;
+        $optsql = "UPDATE product_options SET 
+                    cate='{$optionCate1}',
+                    option_name='{$opt}', 
+                    option_cnt='{$optionCnt1[$x]}', 
+                    option_price='{$optionPrice1[$x]}', 
+                    image_url='{$upload_option_image[$x]}'        
+                    WHERE pid={$pid} AND poid = {$poid_array[$x]}";
+    
+        echo $optsql; // 쿼리문이 제대로 생성되었는지 확인하기 위한 코드
+        $optresult = $mysqli->query($optsql); // 쿼리 실행
+        $x++;
     }    
   }
 
