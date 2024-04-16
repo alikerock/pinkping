@@ -73,27 +73,27 @@ if (move_uploaded_file($_FILES["thumbnail"]["tmp_name"], $save_dir . $savefile))
   </script>";
   exit;
 }
-$sql = "INSERT INTO products (name,cate,content,thumbnail,price,sale_price,sale_ratio,cnt,sale_cnt,	ismain,isnew,isbest,isrecom,locate,userid,sale_end_date,reg_date,status,delivery_fee) VALUES (
-  '{$name}',
-  '{$cate}',
-  '{$content}',
-  '{$thumbnail}',
-  '{$price}',
-  '{$sale_price}',
-  '{$sale_ratio}',
-  '{$cnt}',
-  '{$sale_cnt}',
-  '{$ismain}',
-  '{$isnew}',
-  '{$isbest}',
-  '{$isrecom}',
-  '{$locate}',
-  '{$userid}',
-  '{$sale_end_date}',
-   now(),
-  '{$status}',
-  '{$delivery_fee}'
-)";
+$sql = "UPDATE board SET 
+  name= '{$name}',
+  cate= '{$cate}',
+  content = '{$content}',
+  thumbnail = '{$thumbnail}',
+  price =   '{$price}',
+  sale_price =   '{$sale_price}',
+  sale_ratio =   '{$sale_ratio}',
+  cnt = '{$cnt}',
+  sale_cnt = '{$sale_cnt}',
+  ismain = '{$ismain}',
+  isnew = '{$isnew}',
+  isbest = '{$isbest}',
+  isrecom = '{$isrecom}',
+  locate = '{$locate}',
+  userid = '{$userid}',
+  sale_end_date = '{$sale_end_date}',
+  reg_date = now(),
+  status = '{$status}',
+  delivery_fee = '{$delivery_fee}'
+  WHERE pid = {pid}";
 
 $result = $mysqli->query($sql);
 $pid = $mysqli->insert_id;
