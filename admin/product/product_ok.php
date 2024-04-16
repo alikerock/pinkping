@@ -100,6 +100,7 @@ if ($result) { //상품 등록 하면
 
   //추가 옵션이 있다면
   $optionName1 = $_REQUEST['optionName1'] ?? ''; //옵션명
+  
   $optionCnt1 = $_REQUEST['optionCnt1'] ?? ''; //옵션 재고
   $optionPrice1 = $_REQUEST['optionPrice1'] ?? ''; //옵션 가격
 
