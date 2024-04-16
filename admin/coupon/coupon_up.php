@@ -15,7 +15,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/pinkping/inc/header.php';
                         <label for="coupon_name">쿠폰명 </label>
                     </th>
                     <td>
-                        <input type="text" name="coupon_name" class="form-control" id="coupon_name">
+                        <input type="text" name="coupon_name" class="form-control" id="coupon_name" required>
                     </td>
                 </tr>   
                 <tr>
@@ -23,7 +23,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/pinkping/inc/header.php';
                         <label for="coupon_name">쿠폰이미지 </label>
                     </th>
                     <td>
-                        <input type="file" name="coupon_image" class="form-control" id="coupon_name">
+                        <input type="file" name="coupon_image" class="form-control" id="coupon_name" required>
                     </td>
                 </tr>   
                 <tr>
@@ -31,7 +31,10 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/pinkping/inc/header.php';
                         <label for="coupon_type">쿠폰타입 </label>
                     </th>
                     <td>
-                       
+                        <select class="form-select" name="coupon_type" aria-label="쿠폰타입 선택" id="coupon_type">                            
+                            <option value="1" selected>정액</option>
+                            <option value="2">정률</option>
+                        </select>
                     </td>
                 </tr>   
                 <tr>
@@ -44,10 +47,10 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/pinkping/inc/header.php';
                 </tr>                
                 <tr>
                     <th scope="row">
-                        <label for="coupon_ratio">할인비율	 </label>
+                        <label for="coupon_ratio">할인비율</label>
                     </th>
                     <td>
-                        <input type="text" name="coupon_ratio" class="form-control" id="coupon_ratio">
+                        <input type="text" name="coupon_ratio" class="form-control" id="coupon_ratio" disabled>
                     </td>
                 </tr>                
                 <tr>
@@ -55,27 +58,20 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/pinkping/inc/header.php';
                         <label for="coupon_ratio">상태</label>
                     </th>
                     <td>
-                       <select name="coupon_ratio" id="coupon_ratio">
-                            <option value="1">대기</option>
+                       <select name="coupon_ratio" id="coupon_ratio" class="form-select" >
+                            <option value="1" selected>대기</option>
                             <option value="2">사용중</option>
                             <option value="3">폐기</option>
                        </select>
                     </td>
-                </tr>                
-                <tr>
-                    <th scope="row">
-                        <label for="regdate">등록일	</label>
-                    </th>
-                    <td>
-                    <input type="text" name="regdate" class="form-control" id="regdate">
-                    </td>
-                </tr>                
+                </tr>               
+                             
                 <tr>
                     <th scope="row">
                         <label for="max_value">최대할인금액	</label>
                     </th>
                     <td>
-                    <input type="text" name="max_value" class="form-control" id="max_value">
+                    <input type="text" name="max_value" class="form-control" id="max_value" required>
                     </td>
                 </tr>                
                 <tr>
@@ -83,14 +79,24 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/pinkping/inc/header.php';
                         <label for="use_min_price">최소사용금액	</label>
                     </th>
                     <td>
-                    <input type="text" name="use_min_price" class="form-control" id="use_min_price">
+                    <input type="text" name="use_min_price" class="form-control" id="use_min_price" required>
                     </td>
                 </tr>                
             </tbody>
         </table>
     </form>
 </div>
-
+<script>
+    $('#coupon_type').change(function(){
+        let value = $(this).val();
+        $('#coupon_price, #coupon_ratio').prop('disabled', false);
+        if(value == 1){
+            $('#coupon_ratio').prop('disabled', true);
+        }else{
+            $('#coupon_price').prop('disabled', true);
+        }
+    });
+</script>
 <?php
 include_once $_SERVER['DOCUMENT_ROOT'] . '/pinkping/inc/footer.php';
 ?>
