@@ -205,6 +205,7 @@ while ($row = $result->fetch_object()) {
     function save() {
       let markupStr = $('#summernote').summernote('code');
       let contents = encodeURIComponent(markupStr);
+      $('#contents').val(contents);
 
       if(!$('#thumbnail').val()){
         alert('대표 이미지를 등록하세요');       
