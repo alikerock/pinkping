@@ -157,7 +157,7 @@ if ($result) { //상품 등록 하면
         option_name='{$opt}', 
         option_cnt='{$optionCnt1[$x]}', 
         option_price='{$optionPrice1[$x]}', 
-        image_url='{$upload_option_image[$x]}'
+        image_url='{$upload_option_image[$x]}'        
         WHERE pid={$pid}";
 
       echo $optsql;
