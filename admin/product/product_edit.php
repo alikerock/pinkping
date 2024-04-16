@@ -10,6 +10,13 @@ $sql = "SELECT * FROM products WHERE pid = {$pid}";
 $result = $mysqli -> query($sql);
 $rs = $result->fetch_object();
 
+//대분류 조회
+$sql = "SELECT * FROM category where step = 1";
+$result = $mysqli->query($sql);
+while ($row = $result->fetch_object()) {
+  $cate1[] = $row;
+}
+
 //카테고리 확인
 $cates = $rs->cate; //A0001B0001C0001  str_split(문자열, 개수);
 $cateArray = str_split($cates, 5);
@@ -79,7 +86,13 @@ while ($ors = $optrs->fetch_object()) {
 
                 <select class="form-select" aria-label="대분류" id="cate1" name="cate1" required>
                   <option selected disabled>대분류</option>                 
-
+                  <?php
+                  foreach ($cate1 as $c1) {
+                  ?>
+                    <option value="<?= $c1->code; ?>"><?= $c1->name; ?></option>
+                  <?php
+                  }
+                  ?>
                 </select>
               </div>
               <div class="col">
