@@ -3,18 +3,24 @@ session_start();
 include_once $_SERVER['DOCUMENT_ROOT'] . '/pinkping/inc/header.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/pinkping/admin/inc/admin_check.php';
 
-$sql = "SELECT name FROM category";
+
+$sql = "SELECT c.name, COUNT(p.pid) AS product_count 
+FROM products p 
+JOIN category c 
+ON p.cate LIKE CONCAT('%', c.code, '%')
+GROUP BY c.name";
+
 $result = $mysqli -> query($sql);
-while($row = $result->fetch_object()){
-    $cateArr[] = $row;
+while($rs = $result->fetch_object()){
+    $resultArr[] = $rs;
 }
 
-$cateNames = [];
-foreach($cateArr as $item){
-    array_push($cateNames, $item->name);
+$label = [];
+$data = [];
+foreach($resultArr as $item){
+    array_push($label, $item->name);
+    array_push($data, $item->product_count);
 }
-//print_r($cateNames);
-//echo json_encode($cateNames) ;
 
 ?>
 <style>
@@ -38,15 +44,16 @@ foreach($cateArr as $item){
 
     <script>
     const ctx = document.getElementById('myChart');
-    const cateLabels = <?= json_encode($cateNames) ?>;
+    const cateLabels = <?= json_encode($label) ?>;
+    const cateData = <?= json_encode($data) ?>;
 
     new Chart(ctx, {
         type: 'bar',
         data: {
         labels: cateLabels,
         datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
+            label: '카테고리별 상품수',
+            data: cateData,
             borderWidth: 1
         }]
         },
