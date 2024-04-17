@@ -1,6 +1,14 @@
 <?php
+session_start();
 include_once $_SERVER['DOCUMENT_ROOT'] . '/pinkping/inc/header.php';
 
+//관리자 검사
+if (isset($_SESSION['AUID'])) {
+  echo "<script>
+    alert('이미 로그인되어 있습니다.');
+    location.href='/pinkping/admin/index.php';
+  </script>";
+}
 ?>
 
 <div class="container">
