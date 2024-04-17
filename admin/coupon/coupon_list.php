@@ -64,7 +64,12 @@ while ($rs = $result->fetch_object()) {
               <td><?= $item->use_min_price; ?></td>
               <td><?= $item->max_value; ?></td>
               <td><?= $item->userid; ?></td>
-              <td><?= $item->status; ?></td>
+              <td>
+                <?php
+                if($item->status == '1'){echo '대기';} 
+                else if($item->status == '2'){echo '사용';} 
+                else{echo '폐기';}
+               ?></td>
             </tr>  
         <?php
           }
