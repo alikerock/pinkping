@@ -1,6 +1,24 @@
 <?php
+ob_start(); 
 session_start();
+$title = 'Product Detail';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/pinkping/inc/head.php';
+
+//setcookie('recent_viewed', '17,15' , time()+86400);   // 쿠키가 24시간 지속됨.
+//echo json_encode($_COOKIE['recent_viewed']);  //17%2C15 -> "17,15"
+//var_dump(json_decode("17,15")); // "17,15" -> 17%2C15
+
+
+if(isset($_COOKIE['recent_viewed'])){
+    $rvc = json_encode($_COOKIE['recent_viewed']);
+    $rvcArr = explode(",", $rvc);
+    print_r($rvcArr);
+
+} else{
+    setcookie('recent_viewed', $cookieValue, time()+86400, "/");   // 쿠키가 24시간 지속됨.
+}
+
+
 ?>
 
         <!-- <<<<<<<<<<<<<<<<<<<< Breadcumb Area Start <<<<<<<<<<<<<<<<<<<< -->
