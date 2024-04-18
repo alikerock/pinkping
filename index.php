@@ -10,12 +10,18 @@ while($row = $result->fetch_object()){
     $rsc[] = $row;
 }
 
-/*
-테이블 products의 상품을 최근상품 6개를 조회 pid 기준으로 내림차순 정렬
-order by pid desc limit 0, 6
-결과를 변수명 $rsc에 변수로 할당
-*/
+//메인상품 카테고리명, 코드 출력
+$sql = "SELECT c.name, c.code
+FROM products p
+JOIN category c ON p.cate LIKE CONCAT('%', c.code, '%')
+WHERE p.ismain = 1 AND p.status = 1
+GROUP BY c.name, c.code";
 
+$result = $mysqli -> query($sql);
+while($rs = $result->fetch_object()){
+    $resultArr[] = $rs;
+}
+//print_r($resultArr);
 ?>
 
 
@@ -200,11 +206,13 @@ order by pid desc limit 0, 6
             <div class="karl-projects-menu mb-100">
                 <div class="text-center portfolio-menu">
                     <button class="btn active" data-filter="*">ALL</button>
-                    <button class="btn" data-filter=".women">WOMAN</button>
-                    <button class="btn" data-filter=".man">MAN</button>
-                    <button class="btn" data-filter=".access">ACCESSORIES</button>
-                    <button class="btn" data-filter=".shoes">shoes</button>
-                    <button class="btn" data-filter=".kids">KIDS</button>
+                    <?php
+                        foreach($resultArr as $ra){
+                    ?>
+                        <button class="btn" data-filter=".<?= $ra->code; ?>"><?= $ra->name; ?></button>
+                    <?php        
+                        }
+                    ?>
                 </div>
             </div>
 
@@ -213,9 +221,10 @@ order by pid desc limit 0, 6
                     <?php
                     if(isset($rsc)){
                         foreach($rsc as $item){
+                        $code = substr(원본, -5);
                     ?>
                     <!-- Single gallery Item Start -->
-                    <div class="col-12 col-sm-6 col-md-4 single_gallery_item women wow fadeInUpBig"
+                    <div class="col-12 col-sm-6 col-md-4 single_gallery_item <?= $code; ?> wow fadeInUpBig"
                         data-wow-delay="0.2s">
                         <!-- Product Image -->
                         <div class="product-img">
