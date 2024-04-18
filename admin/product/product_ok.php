@@ -28,7 +28,7 @@ try{
   $userid = $_SESSION['AUID'];
   $sale_end_date = $_POST['sale_end_date'];
 
-  $status = $_POST['status'] ?? 0;
+  $status = $_POST['status'] ?? 1;
   $delivery_fee = $_POST['delivery_fee'] ?? 0;
   $addedImg_id = rtrim($_POST['product_image'], ',');
 
