@@ -1,5 +1,6 @@
 <?php
 session_start();
+$title = 'HOME';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/pinkping/inc/head.php';
 
 
