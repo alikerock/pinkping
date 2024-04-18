@@ -136,7 +136,7 @@
                                 </div>
                                 <!-- Logo Area -->
                                 <div class="top_logo">
-                                    <a href="#"><img src="img/core-img/logo.png" alt=""></a>
+                                    <a href="index.php"><img src="img/core-img/logo.png" alt=""></a>
                                 </div>
                                 <!-- Cart & Menu Area -->
                                 <div class="header-cart-menu d-flex align-items-center ml-auto">
@@ -166,7 +166,7 @@
                                             </li>
                                             <li class="total">
                                                 <span class="pull-right">Total: $20.00</span>
-                                                <a href="cart.html" class="btn btn-sm btn-cart">Cart</a>
+                                                <a href="cart.php" class="btn btn-sm btn-cart">Cart</a>
                                                 <a href="checkout-1.html" class="btn btn-sm btn-checkout">Checkout</a>
                                             </li>
                                         </ul>
@@ -213,11 +213,11 @@
                                                     role="button" data-toggle="dropdown" aria-haspopup="true"
                                                     aria-expanded="false">Pages</a>
                                                 <div class="dropdown-menu" aria-labelledby="karlDropdown">
-                                                    <a class="dropdown-item" href="index.html">Home</a>
-                                                    <a class="dropdown-item" href="shop.html">Shop</a>
-                                                    <a class="dropdown-item" href="product-details.html">Product
+                                                    <a class="dropdown-item" href="index.php">Home</a>
+                                                    <a class="dropdown-item" href="shop.php">Shop</a>
+                                                    <a class="dropdown-item" href="product-details.php">Product
                                                         Details</a>
-                                                    <a class="dropdown-item" href="cart.html">Cart</a>
+                                                    <a class="dropdown-item" href="cart.php">Cart</a>
                                                     <a class="dropdown-item" href="checkout.html">Checkout</a>
                                                 </div>
                                             </li>
