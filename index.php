@@ -1,6 +1,21 @@
 <?php
 session_start();
 include_once $_SERVER['DOCUMENT_ROOT'] . '/pinkping/inc/head.php';
+
+
+$sql = "SELECT * FROM products  WHERE ismain = 1 AND status = 1 ORDER BY pid DESC LIMIT 0, 6";
+$result = $mysqli -> query($sql);
+
+while($row = $result->fetch_object()){
+    $rsc[] = $row;
+}
+
+/*
+테이블 products의 상품을 최근상품 6개를 조회 pid 기준으로 내림차순 정렬
+order by pid desc limit 0, 6
+결과를 변수명 $rsc에 변수로 할당
+*/
+
 ?>
 
 
