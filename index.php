@@ -221,7 +221,12 @@ while($rs = $result->fetch_object()){
                     <?php
                     if(isset($rsc)){
                         foreach($rsc as $item){
-                        $code = substr(원본, -5);
+                        $codeArr = str_split($item->cate,5);
+                        $code = '';
+                        foreach($codeArr as $c){
+                            $code .= $c.' ';
+                        }
+                        //$code = substr($item->cate, -5);
                     ?>
                     <!-- Single gallery Item Start -->
                     <div class="col-12 col-sm-6 col-md-4 single_gallery_item <?= $code; ?> wow fadeInUpBig"
