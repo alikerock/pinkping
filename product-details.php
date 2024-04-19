@@ -167,7 +167,7 @@ while($row = $result3->fetch_object()){
                                                 foreach($optArr as $oa){
                                             ?>   
                                             <tr>
-                                                <td><input type="radio" name="option1" data-value="<?= $oa -> option_price;?>" id="option1_<?= $oa -> poid; ?>" value="<?= $oa -> poid; ?>"></td>
+                                                <td><input type="radio" name="option1" data-value="<?= $oa -> option_price;?>" data-name="<?= $oa -> option_name;?>" id="option1_<?= $oa -> poid; ?>" value="<?= $oa -> poid; ?>"></td>
                                                 <td><label for="option1_<?= $oa -> poid; ?>"><?= $oa -> option_name;?></label></td>
                                                 <td><?= $oa -> option_cnt;?></td>
                                                 <td><?= $oa -> option_price;?></td>
@@ -428,8 +428,9 @@ while($row = $result3->fetch_object()){
         $('.quantity span').click(function(){
             calcTotal();
         });
+        let target = $('.widget-desc input[type="radio"]:checked');
+
         function calcTotal(){
-            let target = $('.widget-desc input[type="radio"]:checked');
             let optprice = Number(target.attr('data-value')) ;
             let qty = Number($('#qty').val());
             console.log(optprice, qty);
@@ -437,6 +438,20 @@ while($row = $result3->fetch_object()){
             let total = optprice * qty;
             $('.total span').text(total);
         }
+        $('.cart').on('submit', function(e){
+            e.preventDefault();
+            //상품코드, 옵션명, 수량
+            let pid = <?= $pid; ?>;            
+            let optname = target.attr('data-name');
+            let qty = Number($('#qty').val());
+
+            let data = {
+                pid : pid,
+                optname: optname,
+                qty :qty
+            }
+
+        });
 
     });
 </script>
