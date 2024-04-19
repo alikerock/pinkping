@@ -154,6 +154,7 @@ while($row = $result3->fetch_object()){
                                     <table>
                                         <thead>
                                             <tr>
+                                                <th>선택</th>
                                                 <th>옵션명</th>
                                                 <th>재고</th>
                                                 <th>가격</th>
@@ -166,7 +167,8 @@ while($row = $result3->fetch_object()){
                                                 foreach($optArr as $oa){
                                             ?>   
                                             <tr>
-                                                <td><?= $oa -> option_name;?></td>
+                                                <td><input type="radio" name="option1" id="option1_<?= $oa -> poid; ?>" value="<?= $oa -> poid; ?>"></td>
+                                                <td><label for="option1_<?= $oa -> poid; ?>"><?= $oa -> option_name;?></label></td>
                                                 <td><?= $oa -> option_cnt;?></td>
                                                 <td><?= $oa -> option_price;?></td>
                                                 <td><img src="<?= $oa -> image_url;?>" alt=""></td>
@@ -179,7 +181,7 @@ while($row = $result3->fetch_object()){
                                     </table>
                                 </div>
                             </div>
-
+                                         
                             <!-- Add to Cart Form -->
                             <form class="cart clearfix mb-50 d-flex" method="post">
                                 <div class="quantity">
@@ -189,6 +191,9 @@ while($row = $result3->fetch_object()){
                                 </div>
                                 <button type="submit" name="addtocart" value="5" class="btn cart-submit d-block">Add to cart</button>
                             </form>
+                            <div>
+                                <h6 class="widget-title total">Total : <span><?= $rs -> price; ?></span></h6>
+                            </div>    
 
                             <div id="accordion" role="tablist">
                                 <div class="card">
