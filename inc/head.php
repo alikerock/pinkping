@@ -1,4 +1,5 @@
 <?php
+session_start();
 include_once $_SERVER['DOCUMENT_ROOT'] . '/pinkping/inc/dbcon.php';
 
 if(isset($_COOKIE['recent_viewed'])){
@@ -13,8 +14,14 @@ if(isset($_COOKIE['recent_viewed'])){
     }
     //print_r($rva);
 }
-
-
+//장바구니 조회 $cartSql, $cartResult $cartArr, product테이블에서 pid와 일치하는 데이터에서 thumbnail, name
+$ssid = session_id();
+$cartSql = "SELECT * FROM cart WHERE ssid = '{$ssid}'";
+$cartResult = $mysqli -> query($cartSql);
+while($row = $cartResult->fetch_object()){
+    $cartArr[] = $row;
+}
+print_r($cartArr);
 ?>
 
 <!DOCTYPE html>
