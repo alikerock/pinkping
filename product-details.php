@@ -14,7 +14,6 @@ $rvcArr = [];
 
 if(isset($_COOKIE['recent_viewed'])){
     $rvcArr = json_decode($_COOKIE['recent_viewed']);//string -> array
-    // $rvcArr = explode(",", $rvc);
     if(!in_array($pid, $rvcArr)){//이미 본 상품이 아니라면
         //본상품이 3개 이상이라면, 첫상품을 제거
         if(sizeof($rvcArr) >= 3){
@@ -23,11 +22,15 @@ if(isset($_COOKIE['recent_viewed'])){
             //$rvcArr = array_values($rvcArr); //인덱스 재정렬
             //ksort($rvcArr);  abc, 가나다 순으로 재정렬
         }
-    }
-} 
-array_push($rvcArr, $pid); //배열에 마지막에 추가
-$rvcStr = json_encode($rvcArr);//[12,17,5] -> '[12,17,5]'
-setcookie('recent_viewed', $rvcStr, time()+86400, "/");
+        array_push($rvcArr, $pid); //배열에 마지막에 추가
+        $rvcStr = json_encode($rvcArr);//[12,17,5] -> '[12,17,5]'
+        setcookie('recent_viewed', $rvcStr, time()+86400, "/");
+    } 
+} else {
+    array_push($rvcArr, $pid); //배열에 마지막에 추가
+    $rvcStr = json_encode($rvcArr);//[12,17,5] -> '[12,17,5]'
+    setcookie('recent_viewed', $rvcStr, time()+86400, "/");
+}
 
 ?>
 
