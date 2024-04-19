@@ -143,7 +143,13 @@ while($row = $result3->fetch_object()){
                             </div>
 
                             <div class="widget size mb-50">
-                                <h6 class="widget-title">Size</h6>
+                                <h6 class="widget-title">
+                                    <?php 
+                                    if(isset($optArr[0])){
+                                        echo $optArr[0]->cate;
+                                    }  
+                                    ?>
+                                </h6>
                                 <div class="widget-desc">
                                     <table>
                                         <thead>
@@ -155,12 +161,20 @@ while($row = $result3->fetch_object()){
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            <?php
+                                             if(isset($optArr)){
+                                                foreach($optArr as $oa){
+                                            ?>   
                                             <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
+                                                <td><?= $oa -> option_name;?></td>
+                                                <td><?= $oa -> option_cnt;?></td>
+                                                <td><?= $oa -> option_price;?></td>
+                                                <td><img src="<?= $oa -> image_url;?>" alt=""></td>
                                             </tr>
+                                            <?php     
+                                                }
+                                             }
+                                            ?>
                                         </tbody>
                                     </table>
                                 </div>
