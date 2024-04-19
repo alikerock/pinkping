@@ -1,6 +1,5 @@
 <?php
 ob_start(); 
-session_start();
 $title = 'Product Detail';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/pinkping/inc/head.php';
 
