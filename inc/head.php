@@ -16,7 +16,17 @@ if(isset($_COOKIE['recent_viewed'])){
 }
 //장바구니 조회 $cartSql, $cartResult $cartArr, product테이블에서 pid와 일치하는 데이터에서 thumbnail, name
 $ssid = session_id();
-$cartSql = "SELECT * FROM cart WHERE ssid = '{$ssid}'";
+
+
+// $cartSql = "SELECT * FROM cart WHERE ssid = '{$ssid}'";
+
+$cartSql = "SELECT p.thumbnail,p.name,c.cnt,c.options
+            FROM products p
+                INNER JOIN cart c
+                ON c.pid = p.pid
+                WHERE c.ssid = '{$ssid}'
+";
+
 $cartResult = $mysqli -> query($cartSql);
 while($row = $cartResult->fetch_object()){
     $cartArr[] = $row;
