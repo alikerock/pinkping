@@ -167,7 +167,7 @@ while($row = $result3->fetch_object()){
                                                 foreach($optArr as $oa){
                                             ?>   
                                             <tr>
-                                                <td><input type="radio" name="option1" id="option1_<?= $oa -> poid; ?>" value="<?= $oa -> poid; ?>"></td>
+                                                <td><input type="radio" name="option1" data-value="<?= $oa -> option_price;?>" id="option1_<?= $oa -> poid; ?>" value="<?= $oa -> poid; ?>"></td>
                                                 <td><label for="option1_<?= $oa -> poid; ?>"><?= $oa -> option_name;?></label></td>
                                                 <td><?= $oa -> option_cnt;?></td>
                                                 <td><?= $oa -> option_price;?></td>
@@ -420,7 +420,27 @@ while($row = $result3->fetch_object()){
                 </div>
             </div>
         </section>
+<script>
+    document.addEventListener('DOMContentLoaded', ()=>{
+        $('.widget-desc input[type="radio"]').change(function(){
+            calcTotal();
+        });
+        $('.quantity span').click(function(){
+            calcTotal();
+        });
+        function calcTotal(){
+            let target = $('.widget-desc input[type="radio"]:checked');
+            let optprice = Number(target.attr('data-value')) ;
+            let qty = Number($('#qty').val());
+            console.log(optprice, qty);
 
+            let total = optprice * qty;
+            $('.total span').text(total);
+        }
+
+    });
+</script>
 <?php
+
 include_once $_SERVER['DOCUMENT_ROOT'] . '/pinkping/inc/tail.php';
 ?>
