@@ -5,7 +5,11 @@ if(isset($_COOKIE['recent_viewed'])){
     $recent_viewed = json_decode($_COOKIE['recent_viewed']);
     $resultString = implode(",", $recent_viewed);
     
+
+
     $sql = "SELECT * FROM products WHERE pid in ({$resultString})";
+    echo $sql;
+
     $result = $mysqli -> query($sql);
     while($row = $result ->fetch_object()){
         $rva[] = $row;
@@ -130,23 +134,24 @@ if(isset($_COOKIE['recent_viewed'])){
                                                 class="cart_quantity">2</span> <i class="ti-bag"></i> recent viewed</a>
                                         <!-- Cart List Area Start -->
                                         <ul class="recent-list">
+                                            <?php
+                                                if(isset($rva)){    
+                                                    foreach($rva as $item) {
+                                            ?>
                                             <li>
-                                                <a href="#" class="image"><img src="img/product-img/product-10.jpg"
+                                                <a href="product-details.php?pid=<?= $item ->pid;?>" class="image"><img src="<?= $item ->thumbnail;?>"
                                                         class="cart-thumb" alt=""></a>
                                                 <div class="cart-item-desc">
-                                                    <h6><a href="#">Women's Fashion</a></h6>
-                                                    <h6>$20</h6>
+                                                    <h6><a href="product-details.php?pid=<?= $item ->pid;?>"><?= $item ->name;?></a></h6>
+                                                    <h6><?= $item ->price;?></h6>
                                                 </div>
 
                                             </li>
-                                            <li>
-                                                <a href="#" class="image"><img src="img/product-img/product-11.jpg"
-                                                        class="cart-thumb" alt=""></a>
-                                                <div class="cart-item-desc">
-                                                    <h6><a href="#">Women's Fashion</a></h6>
-                                                    <h6>$20</h6>
-                                                </div>
-                                            </li>
+                                            <?php   
+                                                    }                                           
+                                                }
+                                            ?>
+                                            
 
                                         </ul>
                                     </div>
