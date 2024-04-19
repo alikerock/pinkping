@@ -31,6 +31,24 @@ if(isset($_COOKIE['recent_viewed'])){
     $rvcStr = json_encode($rvcArr);//[12,17,5] -> '[12,17,5]'
     setcookie('recent_viewed', $rvcStr, time()+86400, "/");
 }
+//상품기본정보 조회 $sql1, $result1, $rs
+$sql1 = "SELECT * FROM products WHERE pid = {$pid}";
+$result1 = $mysqli -> query($sql1);
+$rs = $result1->fetch_object();
+
+//추가이미지 조회 $sql2, $result2, $addedImgs
+$sql2 = "SELECT * FROM product_image_table WHERE pid = {$pid}";
+$result2 = $mysqli -> query($sql2);
+while($row = $result2->fetch_object()){
+    $addedImgs[] = $row;
+};
+
+//옵션 조회  $sql3, $result3, $optArr
+$sql3 = "SELECT * FROM product_options WHERE pid = {$pid}";
+$result3 = $mysqli -> query($sql3);
+while($row = $result3->fetch_object()){
+    $optArr[] = $row;
+};
 
 ?>
 
@@ -59,40 +77,49 @@ if(isset($_COOKIE['recent_viewed'])){
 
                     <div class="col-12 col-md-6">
                         <div class="single_product_thumb">
-                            <div id="product_details_slider" class="carousel slide" data-ride="carousel">
+                                <div id="product_details_slider" class="carousel slide" data-ride="carousel">
 
                                 <ol class="carousel-indicators">
-                                    <li class="active" data-target="#product_details_slider" data-slide-to="0" style="background-image: url(img/product-img/product-9.jpg);">
+
+                                    <li class="active" data-target="#product_details_slider" data-slide-to="0" style="background-image: url(<?= $rs -> thumbnail; ?>);">
                                     </li>
-                                    <li data-target="#product_details_slider" data-slide-to="1" style="background-image: url(img/product-img/product-2.jpg);">
+                                    <?php
+                                    if(isset($addedImgs)){
+                                        $i=1;
+                                        foreach($addedImgs as $ai){
+                                    ?>  
+                                    <li class="" data-target="#product_details_slider" data-slide-to="<?= $i;?>" style="background-image: url('/pinkping/admin/upload/<?= $ai -> filename; ?>');">
                                     </li>
-                                    <li data-target="#product_details_slider" data-slide-to="2" style="background-image: url(img/product-img/product-3.jpg);">
-                                    </li>
-                                    <li data-target="#product_details_slider" data-slide-to="3" style="background-image: url(img/product-img/product-4.jpg);">
-                                    </li>
+                                    <?php
+                                        $i++;
+                                        }
+                                    }
+                                    ?>
+
+                                    
                                 </ol>
 
                                 <div class="carousel-inner">
+
                                     <div class="carousel-item active">
-                                        <a class="gallery_img" href="img/product-img/product-9.jpg">
-                                        <img class="d-block w-100" src="img/product-img/product-9.jpg" alt="First slide">
-                                    </a>
+                                        <a class="gallery_img" href="<?= $rs -> thumbnail; ?>">
+                                        <img class="d-block w-100" src="<?= $rs -> thumbnail; ?>" alt="First slide">
+                                        </a>
                                     </div>
+                                    <?php
+                                    if(isset($addedImgs)){                                       
+                                        foreach($addedImgs as $ai){
+                                    ?>
                                     <div class="carousel-item">
-                                        <a class="gallery_img" href="img/product-img/product-2.jpg">
-                                        <img class="d-block w-100" src="img/product-img/product-2.jpg" alt="Second slide">
-                                    </a>
+                                        <a class="gallery_img" href="/pinkping/admin/upload/<?= $ai -> filename; ?>">
+                                        <img class="d-block w-100" src="/pinkping/admin/upload/<?= $ai -> filename; ?>" alt="slide">
+                                        </a>
                                     </div>
-                                    <div class="carousel-item">
-                                        <a class="gallery_img" href="img/product-img/product-3.jpg">
-                                        <img class="d-block w-100" src="img/product-img/product-3.jpg" alt="Third slide">
-                                    </a>
-                                    </div>
-                                    <div class="carousel-item">
-                                        <a class="gallery_img" href="img/product-img/product-4.jpg">
-                                        <img class="d-block w-100" src="img/product-img/product-4.jpg" alt="Fourth slide">
-                                    </a>
-                                    </div>
+                                    <?php                                        
+                                        }
+                                    }
+                                    ?> 
+                                   
                                 </div>
                             </div>
                         </div>
@@ -101,9 +128,9 @@ if(isset($_COOKIE['recent_viewed'])){
                     <div class="col-12 col-md-6">
                         <div class="single_product_desc">
 
-                            <h4 class="title"><a href="#">Long Yellow Dress</a></h4>
+                            <h4 class="title"><a href="#"><?= $rs -> name; ?></a></h4>
 
-                            <h4 class="price">$ 39.99</h4>
+                            <h4 class="price"><?= $rs -> price; ?></h4>
 
                             <p class="available">Available: <span class="text-muted">In Stock</span></p>
 
@@ -149,9 +176,7 @@ if(isset($_COOKIE['recent_viewed'])){
 
                                     <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
                                         <div class="card-body">
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin pharetra tempor so dales. Phasellus sagittis auctor gravida. Integ er bibendum sodales arcu id te mpus. Ut consectetur lacus.</p>
-                                            <p>Approx length 66cm/26" (Based on a UK size 8 sample) Mixed fibres</p>
-                                            <p>The Model wears a UK size 8/ EU size 36/ US size 4 and her height is 5'8"</p>
+                                            <?= $rs -> content; ?>
                                         </div>
                                     </div>
                                 </div>
