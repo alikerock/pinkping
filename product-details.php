@@ -431,9 +431,9 @@ while($row = $result3->fetch_object()){
         $('.quantity span').click(function(){
             calcTotal();
         });
-        let target = $('.widget-desc input[type="radio"]:checked');
-
+        
         function calcTotal(){
+            let target = $('.widget-desc input[type="radio"]:checked');
             let optprice = Number(target.attr('data-value')) ;
             let qty = Number($('#qty').val());
             console.log(optprice, qty);
@@ -442,8 +442,10 @@ while($row = $result3->fetch_object()){
             $('.total span').text(total);
         }
         $('.cart').on('submit', function(e){
+            
             e.preventDefault();
             //상품코드, 옵션명, 수량
+            let target = $('.widget-desc input[type="radio"]:checked');
             let pid = <?= $pid; ?>;            
             let optname = target.attr('data-name');
             let qty = Number($('#qty').val());
@@ -453,6 +455,8 @@ while($row = $result3->fetch_object()){
                 optname: optname,
                 qty :qty
             }
+            console.log(data);
+
             $.ajax({
                  url:'cart_insert.php',
                  async:false,
@@ -460,12 +464,13 @@ while($row = $result3->fetch_object()){
                  data:data,
                  dataType:'json',
                  error:function(){},
-                 sucess:function(data){
-                    if(data.result=='ok'){
-                        alert('장바구니에 상품을 담았습니다.');                        
-                    }else{
-                        alert('담기 실패, 다시 시도하세요');                        
-                    }
+                 success:function(data){
+                    console.log(data);
+                    // if(data.result=='ok'){
+                    //     alert('장바구니에 상품을 담았습니다.');                        
+                    // }else{
+                    //     alert('담기 실패, 다시 시도하세요');                        
+                    // }
                  }
             });
 
