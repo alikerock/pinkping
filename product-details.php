@@ -145,14 +145,24 @@ while($row = $result3->fetch_object()){
                             <div class="widget size mb-50">
                                 <h6 class="widget-title">Size</h6>
                                 <div class="widget-desc">
-                                    <ul>
-                                        <li><a href="#">32</a></li>
-                                        <li><a href="#">34</a></li>
-                                        <li><a href="#">36</a></li>
-                                        <li><a href="#">38</a></li>
-                                        <li><a href="#">40</a></li>
-                                        <li><a href="#">42</a></li>
-                                    </ul>
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>옵션명</th>
+                                                <th>재고</th>
+                                                <th>가격</th>
+                                                <th>이미지</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
 
