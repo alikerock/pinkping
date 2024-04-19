@@ -4,6 +4,9 @@ session_start();
 $title = 'Product Detail';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/pinkping/inc/head.php';
 
+// $ssid = session_id();
+// echo $ssid;
+
 //setcookie('recent_viewed', [12,17,5] , time()+86400);   // 쿠키가 24시간 지속됨.
 //setcookie('recent_viewed', '17,15' , time()+86400);   // 쿠키가 24시간 지속됨.
 //echo json_encode($_COOKIE['recent_viewed']);  //17%2C15 -> "17,15"
@@ -453,6 +456,7 @@ while($row = $result3->fetch_object()){
             $.ajax({
                  url:'cart_insert.php',
                  async:false,
+                 type: 'POST',
                  data:data,
                  dataType:'json',
                  error:function(){},
