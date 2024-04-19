@@ -450,6 +450,20 @@ while($row = $result3->fetch_object()){
                 optname: optname,
                 qty :qty
             }
+            $.ajax({
+                 url:'cart_insert.php',
+                 async:false,
+                 data:data,
+                 dataType:'json',
+                 error:function(){},
+                 sucess:function(data){
+                    if(data.result=='ok'){
+                        alert('장바구니에 상품을 담았습니다.');                        
+                    }else{
+                        alert('담기 실패, 다시 시도하세요');                        
+                    }
+                 }
+            });
 
         });
 
