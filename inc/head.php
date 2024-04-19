@@ -31,7 +31,7 @@ $cartResult = $mysqli -> query($cartSql);
 while($row = $cartResult->fetch_object()){
     $cartArr[] = $row;
 }
-print_r($cartArr);
+//print_r($cartArr);
 ?>
 
 <!DOCTYPE html>
@@ -180,27 +180,28 @@ print_r($cartArr);
                                     <!-- Cart Area -->
                                     <div class="cart">
                                         <a href="#" id="header-cart-btn" target="_blank"><span
-                                                class="cart_quantity">2</span> <i class="ti-bag"></i> Your Bag $20</a>
+                                                class="cart_quantity"><?= count($cartArr);?></span> <i class="ti-bag"></i> Your Bag $20</a>
                                         <!-- Cart List Area Start -->
                                         <ul class="cart-list">
-                                            <li>
-                                                <a href="#" class="image"><img src="img/product-img/product-10.jpg"
-                                                        class="cart-thumb" alt=""></a>
-                                                <div class="cart-item-desc">
-                                                    <h6><a href="#">Women's Fashion</a></h6>
-                                                    <p>1x - <span class="price">$10</span></p>
-                                                </div>
-                                                <span class="dropdown-product-remove"><i class="icon-cross"></i></span>
-                                            </li>
-                                            <li>
-                                                <a href="#" class="image"><img src="img/product-img/product-11.jpg"
-                                                        class="cart-thumb" alt=""></a>
-                                                <div class="cart-item-desc">
-                                                    <h6><a href="#">Women's Fashion</a></h6>
-                                                    <p>1x - <span class="price">$10</span></p>
-                                                </div>
-                                                <span class="dropdown-product-remove"><i class="icon-cross"></i></span>
-                                            </li>
+                                            <?php
+                                            if(isset($cartArr)){
+                                                foreach($cartArr as $ca){
+                                            ?>
+                                                <li>
+                                                    <a href="#" class="image"><img src="<?= $ca -> thumbnail; ?>"
+                                                            class="cart-thumb" alt=""></a>
+                                                    <div class="cart-item-desc">
+                                                        <h6><a href="#"><?= $ca -> name; ?></a></h6>
+                                                        <p><?= $ca -> options; ?> x <span class="price"><?= $ca -> cnt; ?></span></p>
+                                                    </div>
+                                                    <span class="dropdown-product-remove"><i class="icon-cross"></i></span>
+                                                </li>
+
+                                            <?php        
+                                                }
+                                            }
+                                            ?>
+                                            
                                             <li class="total">
                                                 <span class="pull-right">Total: $20.00</span>
                                                 <a href="cart.php" class="btn btn-sm btn-cart">Cart</a>
