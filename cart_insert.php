@@ -1,4 +1,5 @@
 <?php
+session_start();
 include_once $_SERVER['DOCUMENT_ROOT'] . '/pinkping/inc/dbcon.php';
 
 $pid = $_POST['pid'];
@@ -20,6 +21,7 @@ $sql = "INSERT INTO cart (pid,userid,ssid,options,cnt,regdate) VALUES (
     '{$qty}',
     now()
 )";
+
 $result = $mysqli -> query($sql);
 if($result){
     $data = array('result' => 'ok');
