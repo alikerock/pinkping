@@ -178,13 +178,15 @@ while($row = $cartResult->fetch_object()){
                                 <!-- Cart & Menu Area -->
                                 <div class="header-cart-menu d-flex align-items-center ml-auto">
                                     <!-- Cart Area -->
+                                    <?php
+                                        if(isset($cartArr)){
+                                    ?>
                                     <div class="cart">
                                         <a href="#" id="header-cart-btn" target="_blank"><span
                                                 class="cart_quantity"><?= count($cartArr);?></span> <i class="ti-bag"></i> Your Bag $20</a>
                                         <!-- Cart List Area Start -->
                                         <ul class="cart-list">
-                                            <?php
-                                            if(isset($cartArr)){
+                                            <?php                                            
                                                 foreach($cartArr as $ca){
                                             ?>
                                                 <li>
@@ -198,8 +200,7 @@ while($row = $cartResult->fetch_object()){
                                                 </li>
 
                                             <?php        
-                                                }
-                                            }
+                                                }                                           
                                             ?>
                                             
                                             <li class="total">
@@ -209,6 +210,10 @@ while($row = $cartResult->fetch_object()){
                                             </li>
                                         </ul>
                                     </div>
+                                    <?php   
+                                        }
+                                    ?>
+
                                     <div class="header-right-side-menu ml-15">
                                         <a href="#" id="sideMenuBtn"><i class="ti-menu" aria-hidden="true"></i></a>
                                     </div>
