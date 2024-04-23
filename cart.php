@@ -116,9 +116,9 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/pinkping/inc/head.php';
                             </div>
 
                             <ul class="cart-total-chart">
-                                <li><span>Subtotal</span> <span>$59.90</span></li>
+                                <li><span>Subtotal</span> <span id="subtotal">$59.90</span></li>
                                 <li><span>Shipping</span> <span>Free</span></li>
-                                <li><span><strong>Total</strong></span> <span><strong>$59.90</strong></span></li>
+                                <li><span><strong>Total</strong></span> <span><strong id="grandtotal">$59.90</strong></span></li>
                             </ul>
                             <a href="checkout.html" class="btn karl-checkout-btn">Proceed to checkout</a>
                         </div>
@@ -127,7 +127,12 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/pinkping/inc/head.php';
             </div>
         </div>
         <!-- ****** Cart Area End ****** -->
+<script>
+    function calcTotal(){
 
+    }
+    calcTotal();
+</script>
 <?php
 include_once $_SERVER['DOCUMENT_ROOT'] . '/pinkping/inc/tail.php';
 ?>
