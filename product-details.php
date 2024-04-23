@@ -194,7 +194,7 @@ while($row = $result3->fetch_object()){
                                 <button type="submit" name="addtocart" value="5" class="btn cart-submit d-block">Add to cart</button>
                             </form>
                             <div>
-                                <h6 class="widget-title total">Total : <span><?= $rs -> price; ?></span></h6>
+                                <h6 class="widget-title total" id="subtotal">Total : <span><?= $rs -> price; ?></span></h6>
                             </div>    
 
                             <div id="accordion" role="tablist">
@@ -433,12 +433,16 @@ while($row = $result3->fetch_object()){
         
         function calcTotal(){
             let target = $('.widget-desc input[type="radio"]:checked');
-            let optprice = Number(target.attr('data-value')) ;
             let qty = Number($('#qty').val());
-            console.log(optprice, qty);
-
-            let total = optprice * qty;
-            $('.total span').text(total);
+            let product_price = Number($('.single_product_desc .price').text());
+            let total = 0;
+            if(target.length > 0){
+                let optprice = Number(target.attr('data-value')) ;     
+                total = optprice * qty;
+            }else{
+                total = product_price * qty;
+            }            
+            $('#subtotal span').text(total);
         }
         $('.cart').on('submit', function(e){
             
@@ -448,11 +452,13 @@ while($row = $result3->fetch_object()){
             let pid = <?= $pid; ?>;            
             let optname = target.attr('data-name');
             let qty = Number($('#qty').val());
+            let total = Number($('#subtotal span').text());
 
             let data = {
                 pid : pid,
                 optname: optname,
-                qty :qty
+                qty :qty,
+                total:total
             }
             console.log(data);
 
