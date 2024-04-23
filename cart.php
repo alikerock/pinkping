@@ -35,16 +35,16 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/pinkping/inc/head.php';
                                         <td class="qty">
                                             <div class="quantity">
                                                 <span class="qty-minus"
-                                                    onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false;"><i
+                                                    onclick="var effect = document.getElementById('qty-<?= $ca -> cartid;?>'); var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false;"><i
                                                         class="fa fa-minus" aria-hidden="true"></i></span>
-                                                <input type="number" class="qty-text" id="qty" step="1" min="1" max="99"
+                                                <input type="number" class="qty-text" data-id="<?= $ca -> cartid;?>" id="qty-<?= $ca -> cartid;?>" step="1" min="1" max="99"
                                                     name="quantity" value="<?= $ca-> cnt; ?>">
                                                 <span class="qty-plus"
-                                                    onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;"><i
+                                                    onclick="var effect = document.getElementById('qty-<?= $ca -> cartid;?>'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;"><i
                                                         class="fa fa-plus" aria-hidden="true"></i></span>
                                             </div>
                                         </td>
-                                        <td class="total_price"><span><?= $ca-> total; ?></span><button class="cart_item_del"> x
+                                        <td class="total_price"><span></span><button class="cart_item_del"> x
                                             </button>
                                         </td>
                                     </tr>
@@ -128,10 +128,26 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/pinkping/inc/head.php';
         </div>
         <!-- ****** Cart Area End ****** -->
 <script>
+document.addEventListener('DOMContentLoaded', ()=>{
+    $('.quantity span').click(function(){
+        calcTotal();
+    });
+
     function calcTotal(){
+        let cartItem = $('.cart-table tbody tr');
+        let subtotal = 0;
+        cartItem.each(function(){
+            let price = Number($(this).find('.price span').text());
+            let qty =  Number($(this).find('.qty-text').val());
+            let total_price = $(this).find('.total_price span');
+            total_price.text(price*qty);
+            subtotal = subtotal+(price * qty);
+        });
+        $('#subtotal').text(subtotal);
 
     }
     calcTotal();
+});    
 </script>
 <?php
 include_once $_SERVER['DOCUMENT_ROOT'] . '/pinkping/inc/tail.php';
