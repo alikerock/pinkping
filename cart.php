@@ -11,58 +11,60 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/pinkping/inc/head.php';
                 <div class="row">
                     <div class="col-12">
                         <div class="cart-table clearfix">
-                            <table class="table table-responsive">
-                                <thead>
-                                    <tr>
-                                        <th>Product</th>
-                                        <th>Price</th>
-                                        <th>Quantity</th>
-                                        <th>Total</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                        if(isset($cartArr)){
-                                            foreach($cartArr as $ca){
-                                    ?>
+                            <form action="#" id="cartTable">
+                                <table class="table table-responsive">
+                                    <thead>
+                                        <tr>
+                                            <th>Product</th>
+                                            <th>Price</th>
+                                            <th>Quantity</th>
+                                            <th>Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                            if(isset($cartArr)){
+                                                foreach($cartArr as $ca){
+                                        ?>
 
-                                    <tr>
-                                        <td class="cart_product_img d-flex align-items-center">
-                                            <a href="#"><img src="<?= $ca-> thumbnail; ?>" alt="<?= $ca-> name; ?>"></a>
-                                            <h6>Yellow Cocktail Dress</h6>
-                                        </td>
-                                        <td class="price"><span><?= $ca-> price; ?></span></td>
-                                        <td class="qty">
-                                            <div class="quantity">
-                                                <span class="qty-minus"
-                                                    onclick="var effect = document.getElementById('qty-<?= $ca -> cartid;?>'); var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false;"><i
-                                                        class="fa fa-minus" aria-hidden="true"></i></span>
-                                                <input type="number" class="qty-text" data-id="<?= $ca -> cartid;?>" id="qty-<?= $ca -> cartid;?>" step="1" min="1" max="99"
-                                                    name="quantity" value="<?= $ca-> cnt; ?>">
-                                                <span class="qty-plus"
-                                                    onclick="var effect = document.getElementById('qty-<?= $ca -> cartid;?>'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;"><i
-                                                        class="fa fa-plus" aria-hidden="true"></i></span>
-                                            </div>
-                                        </td>
-                                        <td class="total_price"><span></span><button class="cart_item_del"> x
-                                            </button>
-                                        </td>
-                                    </tr>
+                                        <tr>
+                                            <td class="cart_product_img d-flex align-items-center">
+                                                <a href="#"><img src="<?= $ca-> thumbnail; ?>" alt="<?= $ca-> name; ?>"></a>
+                                                <h6>Yellow Cocktail Dress</h6>
+                                            </td>
+                                            <td class="price"><span><?= $ca-> price; ?></span></td>
+                                            <td class="qty">
+                                                <div class="quantity">
+                                                    <span class="qty-minus"
+                                                        onclick="var effect = document.getElementById('qty-<?= $ca -> cartid;?>'); var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false;"><i
+                                                            class="fa fa-minus" aria-hidden="true"></i></span>
+                                                    <input type="number" class="qty-text" data-id="<?= $ca -> cartid;?>" id="qty-<?= $ca -> cartid;?>" step="1" min="1" max="99"
+                                                        name="qty[<?= $ca -> cartid;?>]" value="<?= $ca-> cnt; ?>">
+                                                    <span class="qty-plus"
+                                                        onclick="var effect = document.getElementById('qty-<?= $ca -> cartid;?>'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;"><i
+                                                            class="fa fa-plus" aria-hidden="true"></i></span>
+                                                </div>
+                                            </td>
+                                            <td class="total_price"><span></span><button class="cart_item_del"> x
+                                                </button>
+                                            </td>
+                                        </tr>
 
-                                    <?php         
+                                        <?php         
+                                                }
                                             }
-                                        }
-                                    ?>                                    
-                                </tbody>
-                            </table>
+                                        ?>                                    
+                                    </tbody>
+                                </table>
+                            </form>
                         </div>
                         <div class="cart-footer d-flex mt-30">
                             <div class="back-to-shop w-50">
                                 <a href="shop-grid-left-sidebar.html">Continue shooping</a>
                             </div>
                             <div class="update-checkout w-50 text-right">
-                                <a href="#">clear cart</a>
-                                <a href="#">Update cart</a>
+                                <a href="#" id="clearCart">clear cart</a>
+                                <a href="#" id="updateCart">Update cart</a>
                             </div>
                         </div>
 
@@ -171,6 +173,44 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
     }
     calcTotal();
+
+    //카트 일괄 업데이트
+    $('#updateCart').click(function(e){
+        e.preventDefault();
+        let cartItem = $('.cart-table tbody tr');
+        let cartIdArr = [];
+        let qtyArr = [];
+
+        cartItem.each(function(){
+            let cartid = Number($(this).find('.qty-text').attr('data-id'));
+            cartIdArr.push(cartid);
+
+            let qty = Number($(this).find('.qty-text').val());
+            qtyArr.push(qty);
+        })
+        console.log(cartIdArr, qtyArr);
+        data = {
+            cartid:cartIdArr,
+            qty:qtyArr
+        }
+        $.ajax({
+            url:'cart_update.php',
+            async:false,
+            type: 'POST',
+            data:data,
+            dataType:'json',
+            error:function(){},
+            success:function(data){
+            console.log(data);
+            if(data.result=='ok'){
+                alert('장바구니가 업데이트 되었습니다');                        
+            }else{
+                alert('오류, 다시 시도하세요');                        
+                }
+            }
+        });
+
+    });
 });    
 </script>
 <?php
