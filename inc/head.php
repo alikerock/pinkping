@@ -18,6 +18,7 @@ if(isset($_COOKIE['recent_viewed'])){
 
 if(isset($_SESSION['UID'])){
     $userid = $_SESSION['UID'];
+    $ssid = '';
 } else {
     $ssid = session_id();
     $userid = '';
