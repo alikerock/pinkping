@@ -78,9 +78,18 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/pinkping/inc/head.php';
                                 <h5>Cupon code</h5>
                                 <p>Enter your cupone code</p>
                             </div>
+                            <?php
+                            $cSql = "SELECT uc.ucid, c.coupon_name FROM user_coupons uc JOIN coupons c  ON c.cid = uc.couponid WHERE uc.userid = '{$userid}'";
+                            echo $cSql;
+                           
+                            ?>
                             <form action="#">
-                                <input type="search" name="search" placeholder="#569ab15">
-                                <button type="submit">Apply</button>
+                                <select class="form-select" aria-label="쿠폰선택" name="coupon" id="coupon">
+                                    <option selected>쿠폰선택</option>
+
+                                    <option value="1">회원가입 축하</option>
+
+                                </select>
                             </form>
                         </div>
                     </div>
