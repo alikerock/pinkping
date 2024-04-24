@@ -176,7 +176,7 @@ while($row = $cartResult->fetch_object()){
                                 </div>
                                 <!-- Logo Area -->
                                 <div class="top_logo">
-                                    <a href="index.php"><img src="img/core-img/logo.png" alt=""></a>
+                                    <a href="index.php"><img src="/pinkping/img/core-img/logo.png" alt=""></a>
                                 </div>
                                 <!-- Cart & Menu Area -->
                                 <div class="header-cart-menu d-flex align-items-center ml-auto">                                    
