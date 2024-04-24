@@ -18,7 +18,7 @@ if ($rs) {
   $_SESSION['UNAME'] = $rs->username;
   echo "<script>
     alert('".$_SESSION['UID']."님 반갑습니다');
-    //location.href = '/pinkping/index.php';
+    location.href = '/pinkping/index.php';
   </script>";
   exit();
 } else {
