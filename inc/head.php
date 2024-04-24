@@ -142,7 +142,10 @@ while($row = $cartResult->fetch_object()){
                             <div class="top_single_area d-flex align-items-center">
                                 <!-- recent view Area -->
                                 <div class="header-cart-menu d-flex align-items-center mr-auto">
+                                    
+                                    
                                     <!-- Cart Area -->
+
                                     <div class="recentview">
                                         <a href="#" id="header-recent-btn" target="_blank"><span
                                                 class="cart_quantity">2</span> <i class="ti-bag"></i> recent viewed</a>
@@ -176,8 +179,25 @@ while($row = $cartResult->fetch_object()){
                                     <a href="index.php"><img src="img/core-img/logo.png" alt=""></a>
                                 </div>
                                 <!-- Cart & Menu Area -->
-                                <div class="header-cart-menu d-flex align-items-center ml-auto">
-                                    <!-- Cart Area -->
+                                <div class="header-cart-menu d-flex align-items-center ml-auto">                                    
+                                
+                                <?php
+                                if (!isset($_SESSION['UID'])) { //없다면
+                                ?>
+                                    <a href="/pinkping/member/login.php">로그인</a>
+                                    <a href="/pinkping/member/signup.php">회원가입</a>
+                                <?php
+                                } else{ //있다면
+                                ?>  
+                                    <a href="/pinkping/member/logout.php">로그아웃</a>
+                                <?php
+                                }
+                                ?>            
+                                    
+
+
+                                    
+                                <!-- Cart Area -->
                                     
                                     <div class="cart">
                                         <a href="#" id="header-cart-btn" target="_blank">
