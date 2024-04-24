@@ -21,13 +21,12 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/pinkping/inc/header.php';
             <input type="password" class="form-control" name="passwd" id="passwd" placeholder="passwd">
             <label for="passwd">passwd</label>
         </div>
-        <button class="btn btn-primary">회원가입</button>
+        <button class="btn btn-primary" type="button">회원가입</button>
     </form>
 </div>
 <script>
     document.addEventListener('DOMContentLoaded',()=>{
-        $('#signup').on('submit',function(e){
-            e.preventDefault();
+        $('#signup button').on('click',function(){         
             let userid = $('#userid').val();
             let email = $('#email').val();
 
@@ -41,9 +40,15 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/pinkping/inc/header.php';
                 url:'signup_check.php',
                 data:data,
                 type:'POST',
-                datetype:'json',
+                dataType:'json',
                 success:function(returned_data){
-                    console.log(returned_data);
+                    if(Number(returned_data.cnt) > 0){
+                        alert('아이디 또는 이메일이 중복됩니다, 다시 시도해주세요.');
+                        $('#userid').focus();
+                        return false;
+                    }else{
+                        $('#signup').submit();
+                    }
                 }
             });
         });
