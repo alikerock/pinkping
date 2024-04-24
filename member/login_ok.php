@@ -16,6 +16,10 @@ $rs = $result->fetch_object();
 if ($rs) {
   $_SESSION['UID'] = $rs->userid;
   $_SESSION['UNAME'] = $rs->username;
+  $ssid = session_id();
+  $cartSql = "UPDATE cart SET ssid=null, userid='{$_SESSION['UID']}' WHERE ssid='{$ssid}'";
+  $result = $mysqli -> query($cartSql);
+
   echo "<script>
     alert('".$_SESSION['UID']."님 반갑습니다');
     location.href = '/pinkping/index.php';
