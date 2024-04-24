@@ -7,7 +7,7 @@ $passwd = trim($_POST['passwd']);
 $passwd = hash('sha512', $passwd);
 
 $sql = "SELECT * FROM members where userid='{$userid}' and passwd = '{$passwd}'";
-echo $sql;
+
 $result = $mysqli->query($sql);
 $rs = $result->fetch_object();
 
@@ -17,8 +17,8 @@ if ($rs) {
   $_SESSION['UID'] = $rs->userid;
   $_SESSION['UNAME'] = $rs->username;
   echo "<script>
-    alert('<?= $_SESSION['UID']; ?>님 반갑습니다');
-    location.href = '/pinkping/index.php';
+    alert('".$_SESSION['UID']."님 반갑습니다');
+    //location.href = '/pinkping/index.php';
   </script>";
   exit();
 } else {
