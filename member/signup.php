@@ -4,7 +4,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/pinkping/inc/header.php';
 ?>
 <div class="container">
     <h2>회원가입</h2>
-    <form action="signup_ok.php" method="POST">
+    <form action="signup_ok.php" method="POST" id="signup">
         <div class="form-floating mb-3">
             <input type="text" class="form-control" name="username" id="username" placeholder="username">
             <label for="username">username</label>
@@ -24,7 +24,32 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/pinkping/inc/header.php';
         <button class="btn btn-primary">회원가입</button>
     </form>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded',()=>{
+        $('#signup').on('submit',function(e){
+            e.preventDefault();
+            let userid = $('#userid').val();
+            let email = $('#email').val();
 
+            let data = {
+                userid:userid,
+                email:email
+            }
+            console.log(data);
+            $.ajax({
+                async:false,
+                url:'signup_check.php',
+                data:data,
+                type:'POST',
+                datetype:'json',
+                success:function(returned_data){
+                    console.log(returned_data);
+                }
+            });
+        });
+
+    });//DOMContentLoaded
+</script>
 <?php
 include_once $_SERVER['DOCUMENT_ROOT'] . '/pinkping/inc/footer.php';
 ?>
