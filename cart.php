@@ -211,6 +211,16 @@ document.addEventListener('DOMContentLoaded', ()=>{
         });
 
     });
+
+    //카트 삭제 업데이트
+    $('#clearCart').click(function(e){
+        /*
+        cart테이블에서 현재 접속한 유저ssid의 값과 ssid컬럼의 값이 같은 데이터를 모두 삭제
+        cart_clear.php
+        ok
+        카트를 비웠습니다. 경고창
+        */
+    })
 });    
 </script>
 <?php
