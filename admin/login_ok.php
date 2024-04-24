@@ -7,7 +7,7 @@ $passwd = trim($_POST['passwd']);
 $passwd = hash('sha512', $passwd);
 
 $sql = "SELECT * FROM admins where userid='{$userid}' and passwd = '{$passwd}'";
-echo $sql;
+
 $result = $mysqli->query($sql);
 $rs = $result->fetch_object();
 
