@@ -87,6 +87,8 @@
     <script src="/pinkping/js/popper.min.js"></script>
     <!-- Bootstrap js -->
     <script src="/pinkping/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js" integrity="sha512-7Pi/otdlbbCR+LnW+F7PwFcSDJOuUJB3OxtEHbg4vSMvzvJjde4Po1v4BR9Gdc9aXNUNFVUY+SK51wWT8WF0Gg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
     <!-- Plugins js -->
     <script src="/pinkping/js/plugins.js"></script>
     <!-- Active js -->
