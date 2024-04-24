@@ -63,7 +63,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/pinkping/inc/head.php';
                                 <a href="shop-grid-left-sidebar.html">Continue shooping</a>
                             </div>
                             <div class="update-checkout w-50 text-right">
-                                <a href="#" id="clearCart">clear cart</a>
+                                <a href="cart_clear_ok.php" id="clearCart">clear cart</a>
                                 <a href="#" id="updateCart">Update cart</a>
                             </div>
                         </div>
@@ -212,15 +212,28 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
     });
 
+    /*
     //카트 삭제 업데이트
     $('#clearCart').click(function(e){
-        /*
-        cart테이블에서 현재 접속한 유저ssid의 값과 ssid컬럼의 값이 같은 데이터를 모두 삭제
-        cart_clear.php
-        ok
-        카트를 비웠습니다. 경고창
-        */
+        e.preventDefault();
+
+        $.ajax({
+            url:'cart_clear.php',
+            async:false,
+            dataType:'json',
+            error:function(){},
+            success:function(data){
+            console.log(data);
+            if(data.result=='ok'){
+                alert('장바구니가 비웠습니다.');     
+                location.reload();                   
+            }else{
+                alert('오류, 다시 시도하세요');                        
+                }
+            }
+        });
     })
+    */
 });    
 </script>
 <?php
