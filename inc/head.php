@@ -15,8 +15,13 @@ if(isset($_COOKIE['recent_viewed'])){
     //print_r($rva);
 }
 //장바구니 조회 $cartSql, $cartResult $cartArr, product테이블에서 pid와 일치하는 데이터에서 thumbnail, name
-$ssid = session_id();
 
+if(isset($_SESSION['UID'])){
+    $userid = $_SESSION['UID'];
+} else {
+    $ssid = session_id();
+    $userid = '';
+}
 
 // $cartSql = "SELECT * FROM cart WHERE ssid = '{$ssid}'";
 
@@ -24,7 +29,7 @@ $cartSql = "SELECT p.thumbnail,p.name,p.price,c.cartid,c.cnt,c.options,c.total
             FROM products p
                 INNER JOIN cart c
                 ON c.pid = p.pid
-                WHERE c.ssid = '{$ssid}'
+                WHERE c.ssid = '{$ssid}' or c.userid = '{$userid}'
 ";
 
 $cartResult = $mysqli -> query($cartSql);
@@ -54,7 +59,7 @@ while($row = $cartResult->fetch_object()){
     <link rel="stylesheet" href="/pinkping/css/core-style.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" integrity="sha512-jnSuA4Ss2PkkikSOLtYs8BlYIeeIK1h99ty4YfvRPAlzr377vr3CXDb7sb7eEEBYjDtcYj+AjBH3FLv5uSJuXg==" crossorigin="anonymous" referrerpolicy="no-referrer" />    
-    
+
     <link rel="stylesheet" href="/pinkping/style.css">
 
     <!-- Responsive CSS -->
