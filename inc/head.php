@@ -45,17 +45,17 @@ while($row = $cartResult->fetch_object()){
     <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
     <!-- Title  -->
-    <title><?= $title; ?> | Karl - Fashion Ecommerce</title>
+    <title><?= $title ?? ''; ?> | Karl - Fashion Ecommerce</title>
 
     <!-- Favicon  -->
-    <link rel="icon" href="img/core-img/favicon.ico">
+    <link rel="icon" href="/pinkping/img/core-img/favicon.ico">
 
     <!-- Core Style CSS -->
-    <link rel="stylesheet" href="css/core-style.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/pinkping/css/core-style.css">
+    <link rel="stylesheet" href="/pinkping/style.css">
 
     <!-- Responsive CSS -->
-    <link href="css/responsive.css" rel="stylesheet">
+    <link href="/pinkping/css/responsive.css" rel="stylesheet">
 
 </head>
 
