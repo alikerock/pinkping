@@ -1,10 +1,10 @@
 <?php
-session_start();
-include_once $_SERVER['DOCUMENT_ROOT'] . '/pinkping/inc/header.php';
+$title = '회원가입';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/pinkping/inc/head.php';
 ?>
 <div class="container">
-    <h2>회원가입</h2>
-    <form action="signup_ok.php" method="POST" id="signup">
+    <h2 class="mt-3">회원가입</h2>
+    <form action="signup_ok.php" method="POST" id="signup" class="pb-5">
         <div class="form-floating mb-3">
             <input type="text" class="form-control" name="username" id="username" placeholder="username">
             <label for="username">username</label>
@@ -56,5 +56,5 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/pinkping/inc/header.php';
     });//DOMContentLoaded
 </script>
 <?php
-include_once $_SERVER['DOCUMENT_ROOT'] . '/pinkping/inc/footer.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/pinkping/inc/tail.php';
 ?>
