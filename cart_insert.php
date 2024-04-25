@@ -9,38 +9,41 @@ $total =  $_POST['total'];
 
 if(isset($_SESSION['UID'])){
     $userid = $_SESSION['UID'];
+    $ssid = '';
 } else {
     $ssid = session_id();
     $userid = '';
 }
 
 //pid 장바구니 중복체크
-$sql = "SELECT COUNT(*) AS cnt FROM cart WHERE pid = '{$pid}' ";
+$sql = "SELECT COUNT(*) AS cnt FROM cart WHERE pid = '{$pid}' AND (userid = '{$userid}' or ssid='{$ssid}')";
 $result = $mysqli -> query($sql);
 $row = $result -> fetch_object(); // $row->cnt
 
-if($result){
-    $data = array('result' => $row->cnt);
-    echo json_encode($data);
-}else{
-    $sql = "INSERT INTO cart (pid,userid,ssid,options,cnt,total,regdate) VALUES (
-        {$pid},
-        '{$userid}',
-        '{$ssid}',
-        '{$optname}',
-        '{$qty}',
-        '{$total}',
-        now()
-    )";
-    
-    $result = $mysqli -> query($sql);
-    if($result){
-        $data = array('result' => 'ok');
-    } else{
-        $data = array('result' => 'fail');
+if($result){    
+    if($row->cnt > 0){
+        $data = array('result' => '중복');
+        echo json_encode($data);
+    }else {
+        $cartsql = "INSERT INTO cart (pid,userid,ssid,options,cnt,total,regdate) VALUES (
+            {$pid},
+            '{$userid}',
+            '{$ssid}',
+            '{$optname}',
+            '{$qty}',
+            '{$total}',
+            now()
+        )";
+        
+        $cartresult = $mysqli -> query($cartsql);
+        if($cartresult){
+            $data = array('result' => 'ok');
+        } else{
+            $data = array('result' => 'fail');
+        }
+        echo json_encode($data);
     }
-    echo json_encode($data);
-}
+}       
 
 
 
