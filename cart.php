@@ -79,8 +79,8 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/pinkping/inc/head.php';
                                 <p>Enter your cupone code</p>
                             </div>
                             <?php
-                            $cSql = "SELECT uc.ucid, c.coupon_name FROM user_coupons uc JOIN coupons c  ON c.cid = uc.couponid WHERE uc.userid = '{$userid}' AND uc.use_max_date >= now()";
-                            echo $cSql;
+                            $cSql = "SELECT uc.ucid, c.coupon_name, c.coupon_price FROM user_coupons uc JOIN coupons c  ON c.cid = uc.couponid WHERE uc.userid = '{$userid}' AND uc.use_max_date >= now()";
+                          
                             $cResult = $mysqli -> query($cSql);
                             while($cRow = $cResult->fetch_object()){
                                 $cpArr[] = $cRow;
@@ -90,8 +90,16 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/pinkping/inc/head.php';
                             <form action="#">
                                 <select class="form-select" aria-label="쿠폰선택" name="coupon" id="coupon">
                                     <option selected>쿠폰선택</option>
+                                    <?php
+                                    if(isset($cpArr)){
+                                        foreach($cpArr as $ca){
+                                    ?>
+                                        <option data-price="<?= $ca -> coupon_price ?>" value="<?= $ca -> couponid ?>"><?= $ca -> coupon_name ?></option>
+                                    <?php
+                                        }
+                                    }
+                                    ?>
 
-                                    <option value="1">회원가입 축하</option>
 
                                 </select>
                             </form>
@@ -132,6 +140,9 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/pinkping/inc/head.php';
 
                             <ul class="cart-total-chart">
                                 <li><span>Subtotal</span> <span id="subtotal">$59.90</span></li>
+
+                                <li><span id="coupon-name"></span> <span id="coupon-price"></span></li>
+
                                 <li><span>Shipping</span> <span>Free</span></li>
                                 <li><span><strong>Total</strong></span> <span><strong id="grandtotal">$59.90</strong></span></li>
                             </ul>
@@ -171,16 +182,29 @@ document.addEventListener('DOMContentLoaded', ()=>{
             }
         });
     })
+    //쿠폰적용 계산
+    $('#coupon').change(function(){
+        let cname = $(this).find('option:selected').text();
+        let cprice = $(this).find('option:selected').attr('data-price');;
+        $('#coupon-name').text(cname);
+        $('#coupon-price').text('-'+cprice);
+        let product_price = Number($('#subtotal').text());
+        let discount = Number($('#coupon-price').text());
+        $('#grandtotal').text(product_price+discount);
 
+    });
     function calcTotal(){
         let cartItem = $('.cart-table tbody tr');
         let subtotal = 0;
         cartItem.each(function(){
             let price = Number($(this).find('.price span').text());
+            let cprice = $(this).find('option:selected').attr('data-price');
             let qty =  Number($(this).find('.qty-text').val());
             let total_price = $(this).find('.total_price span');
+            let grand_total = 
             total_price.text(price*qty);
             subtotal = subtotal+(price * qty);
+
         });
         $('#subtotal').text(subtotal);
 
@@ -247,6 +271,9 @@ document.addEventListener('DOMContentLoaded', ()=>{
         });
     })
     */
+
+
+
 });    
 </script>
 <?php
