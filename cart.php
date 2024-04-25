@@ -99,7 +99,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/pinkping/inc/head.php';
                                 ?>
                                 
                                 <select class="form-select" aria-label="쿠폰선택" name="coupon" id="coupon">
-                                    <option selected>쿠폰선택</option>
+                                    <option selected disabled>쿠폰선택</option>
                                     <?php
                                     if(isset($cpArr)){
                                         foreach($cpArr as $ca){
