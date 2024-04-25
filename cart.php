@@ -79,8 +79,12 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/pinkping/inc/head.php';
                                 <p>Enter your cupone code</p>
                             </div>
                             <?php
-                            $cSql = "SELECT uc.ucid, c.coupon_name FROM user_coupons uc JOIN coupons c  ON c.cid = uc.couponid WHERE uc.userid = '{$userid}'";
+                            $cSql = "SELECT uc.ucid, c.coupon_name FROM user_coupons uc JOIN coupons c  ON c.cid = uc.couponid WHERE uc.userid = '{$userid}' AND uc.use_max_date >= now()";
                             echo $cSql;
+                            $cResult = $mysqli -> query($cSql);
+                            while($cRow = $cResult->fetch_object()){
+                                $cpArr[] = $cRow;
+                            }
                            
                             ?>
                             <form action="#">
