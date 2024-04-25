@@ -12,12 +12,12 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/pinkping/inc/head.php';
                 foreach($cartArr as $c){
                     $cpidArr[]=$c->pid;
                 }
-                print_r($cpidArr);
+                
                 ?>
                 <form action="checkout.php" method="POST">
                     <input type="hidden" name="userid" value="<?= $userid; ?>">
-                    <input type="hidden" name="pid" value="12,14,15">
-                    <input type="hidden" name="grand_total" value="">
+                    <input type="hidden" name="pid" id="pidArr" value="<?php echo implode(",", $cpidArr);?>">
+                    <input type="hidden" name="grand_total" id="grand_total_final" value="">
                     <div class="row">
                         <div class="col-12">
                             <div class="cart-table clearfix">
@@ -170,9 +170,13 @@ document.addEventListener('DOMContentLoaded', ()=>{
         calcTotal();
     });
     $('.cart_item_del').click(function(){
+
         $(this).closest('tr').remove();
         calcTotal();
         let cartid =  $(this).closest('tr').find('.qty-text').attr('data-id');
+
+
+
         let data = {
             cartid :cartid
         }
@@ -186,7 +190,8 @@ document.addEventListener('DOMContentLoaded', ()=>{
             success:function(data){
             console.log(data);
             if(data.result=='ok'){
-                alert('장바구니가 업데이트 되었습니다');                        
+                alert('장바구니가 업데이트 되었습니다');  
+                location.reload();                      
             }else{
                 alert('오류, 다시 시도하세요');                        
                 }
@@ -215,6 +220,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
         let grand_total = subtotal+discount;
         $('#subtotal').text(subtotal);
         $('#grandtotal').text(grand_total);
+        $('#grand_total_final').val(grand_total);
     }
     calcTotal();
 
