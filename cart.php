@@ -8,10 +8,20 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/pinkping/inc/head.php';
         <!-- ****** Cart Area Start ****** -->
         <div class="cart_area section_padding_100 clearfix">
             <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="cart-table clearfix">
-                            <form action="#" id="cartTable">
+                <?php
+                foreach($cartArr as $c){
+                    $cpidArr[]=$c->pid;
+                }
+                print_r($cpidArr);
+                ?>
+                <form action="checkout.php" method="POST">
+                    <input type="hidden" name="userid" value="<?= $userid; ?>">
+                    <input type="hidden" name="pid" value="12,14,15">
+                    <input type="hidden" name="grand_total" value="">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="cart-table clearfix">
+                                
                                 <table class="table table-responsive">
                                     <thead>
                                         <tr>
@@ -56,45 +66,45 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/pinkping/inc/head.php';
                                         ?>                                    
                                     </tbody>
                                 </table>
-                            </form>
-                        </div>
-                        <div class="cart-footer d-flex mt-30">
-                            <div class="back-to-shop w-50">
-                                <a href="shop-grid-left-sidebar.html">Continue shooping</a>
+                                
                             </div>
-                            <div class="update-checkout w-50 text-right">
-                                <a href="cart_clear_ok.php" id="clearCart">clear cart</a>
-                                <a href="#" id="updateCart">Update cart</a>
+                            <div class="cart-footer d-flex mt-30">
+                                <div class="back-to-shop w-50">
+                                    <a href="shop-grid-left-sidebar.html">Continue shooping</a>
+                                </div>
+                                <div class="update-checkout w-50 text-right">
+                                    <a href="cart_clear_ok.php" id="clearCart">clear cart</a>
+                                    <a href="#" id="updateCart">Update cart</a>
+                                </div>
                             </div>
-                        </div>
 
+                        </div>
                     </div>
-                </div>
 
-                <div class="row">
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class="coupon-code-area mt-70">
-                            <div class="cart-page-heading">
-                                <h5>Cupon code</h5>
-                                <p>Enter your cupone code</p>
-                            </div>
-                            <?php
-                            $cSql = "SELECT uc.ucid, c.coupon_name, c.coupon_price FROM user_coupons uc JOIN coupons c  ON c.cid = uc.couponid WHERE uc.userid = '{$userid}' AND uc.use_max_date >= now()";
-                          
-                            $cResult = $mysqli -> query($cSql);
-                            while($cRow = $cResult->fetch_object()){
-                                $cpArr[] = $cRow;
-                            }
-                           
-                            ?>
-                            <form action="#">
+                    <div class="row">
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <div class="coupon-code-area mt-70">
+                                <div class="cart-page-heading">
+                                    <h5>Cupon code</h5>
+                                    <p>Enter your cupone code</p>
+                                </div>
+                                <?php
+                                $cSql = "SELECT uc.ucid, c.coupon_name, c.coupon_price FROM user_coupons uc JOIN coupons c  ON c.cid = uc.couponid WHERE uc.status = 1 AND uc.userid = '{$userid}' AND uc.use_max_date >= now()";
+                            
+                                $cResult = $mysqli -> query($cSql);
+                                while($cRow = $cResult->fetch_object()){
+                                    $cpArr[] = $cRow;
+                                }
+                            
+                                ?>
+                                
                                 <select class="form-select" aria-label="쿠폰선택" name="coupon" id="coupon">
                                     <option selected>쿠폰선택</option>
                                     <?php
                                     if(isset($cpArr)){
                                         foreach($cpArr as $ca){
                                     ?>
-                                        <option data-price="<?= $ca -> coupon_price ?>" value="<?= $ca -> couponid ?>"><?= $ca -> coupon_name ?></option>
+                                        <option data-price="<?= $ca -> coupon_price ?>" value="<?= $ca -> ucid ?>"><?= $ca -> coupon_name ?></option>
                                     <?php
                                         }
                                     }
@@ -102,54 +112,55 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/pinkping/inc/head.php';
 
 
                                 </select>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class="shipping-method-area mt-70">
-                            <div class="cart-page-heading">
-                                <h5>Shipping method</h5>
-                                <p>Select the one you want</p>
-                            </div>
-
-                            <div class="custom-control custom-radio mb-30">
-                                <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
-                                <label class="custom-control-label d-flex align-items-center justify-content-between"
-                                    for="customRadio1"><span>Next day delivery</span><span>$4.99</span></label>
-                            </div>
-
-                            <div class="custom-control custom-radio mb-30">
-                                <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input">
-                                <label class="custom-control-label d-flex align-items-center justify-content-between"
-                                    for="customRadio2"><span>Standard delivery</span><span>$1.99</span></label>
-                            </div>
-
-                            <div class="custom-control custom-radio">
-                                <input type="radio" id="customRadio3" name="customRadio" class="custom-control-input">
-                                <label class="custom-control-label d-flex align-items-center justify-content-between"
-                                    for="customRadio3"><span>Personal Pickup</span><span>Free</span></label>
+                                
                             </div>
                         </div>
-                    </div>
-                    <div class="col-12 col-lg-4">
-                        <div class="cart-total-area mt-70">
-                            <div class="cart-page-heading">
-                                <h5>Cart total</h5>
-                                <p>Final info</p>
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <div class="shipping-method-area mt-70">
+                                <div class="cart-page-heading">
+                                    <h5>Shipping method</h5>
+                                    <p>Select the one you want</p>
+                                </div>
+
+                                <div class="custom-control custom-radio mb-30">
+                                    <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
+                                    <label class="custom-control-label d-flex align-items-center justify-content-between"
+                                        for="customRadio1"><span>Next day delivery</span><span>$4.99</span></label>
+                                </div>
+
+                                <div class="custom-control custom-radio mb-30">
+                                    <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input">
+                                    <label class="custom-control-label d-flex align-items-center justify-content-between"
+                                        for="customRadio2"><span>Standard delivery</span><span>$1.99</span></label>
+                                </div>
+
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" id="customRadio3" name="customRadio" class="custom-control-input">
+                                    <label class="custom-control-label d-flex align-items-center justify-content-between"
+                                        for="customRadio3"><span>Personal Pickup</span><span>Free</span></label>
+                                </div>
                             </div>
+                        </div>
+                        <div class="col-12 col-lg-4">
+                            <div class="cart-total-area mt-70">
+                                <div class="cart-page-heading">
+                                    <h5>Cart total</h5>
+                                    <p>Final info</p>
+                                </div>
 
-                            <ul class="cart-total-chart">
-                                <li><span>Subtotal</span> <span id="subtotal">$59.90</span></li>
+                                <ul class="cart-total-chart">
+                                    <li><span>Subtotal</span> <span id="subtotal">$59.90</span></li>
 
-                                <li><span id="coupon-name"></span> <span id="coupon-price"></span></li>
+                                    <li><span id="coupon-name"></span> <span id="coupon-price"></span></li>
 
-                                <li><span>Shipping</span> <span>Free</span></li>
-                                <li><span><strong>Total</strong></span> <span><strong id="grandtotal">$59.90</strong></span></li>
-                            </ul>
-                            <a href="checkout.html" class="btn karl-checkout-btn">Proceed to checkout</a>
+                                    <li><span>Shipping</span> <span>Free</span></li>
+                                    <li><span><strong>Total</strong></span> <span><strong id="grandtotal">$59.90</strong></span></li>
+                                </ul>
+                                <button class="btn karl-checkout-btn">Proceed to checkout</button>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
         <!-- ****** Cart Area End ****** -->
