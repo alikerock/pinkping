@@ -181,29 +181,27 @@ document.addEventListener('DOMContentLoaded', ()=>{
                 }
             }
         });
-    })
+    });
     //쿠폰적용 계산
     $('#coupon').change(function(){
         let cname = $(this).find('option:selected').text();
-        let cprice = $(this).find('option:selected').attr('data-price');;
+        let cprice = $(this).find('option:selected').attr('data-price');
         $('#coupon-name').text(cname);
         $('#coupon-price').text('-'+cprice);
-        let product_price = Number($('#subtotal').text());
-        let discount = Number($('#coupon-price').text());
-        $('#grandtotal').text(product_price+discount);
-
+        calcTotal();
     });
     function calcTotal(){
         let cartItem = $('.cart-table tbody tr');
         let subtotal = 0;
         cartItem.each(function(){
             let price = Number($(this).find('.price span').text());
-            let cprice = $(this).find('option:selected').attr('data-price');
             let qty =  Number($(this).find('.qty-text').val());
             let total_price = $(this).find('.total_price span');
-            let grand_total = 
-            total_price.text(price*qty);
+            let discount = Number($('#coupon-price').text());
             subtotal = subtotal+(price * qty);
+            total_price.text(price*qty);
+            let grand_total = subtotal+discount;
+            $('#grandtotal').text(grand_total);
 
         });
         $('#subtotal').text(subtotal);
