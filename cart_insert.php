@@ -13,24 +13,36 @@ if(isset($_SESSION['UID'])){
     $ssid = session_id();
     $userid = '';
 }
-//pid	userid	ssid	options	cnt	regdate	
 
-$sql = "INSERT INTO cart (pid,userid,ssid,options,cnt,total,regdate) VALUES (
-    {$pid},
-    '{$userid}',
-    '{$ssid}',
-    '{$optname}',
-    '{$qty}',
-    '{$total}',
-    now()
-)";
-
+//pid 장바구니 중복체크
+$sql = "SELECT COUNT(*) AS cnt FROM cart WHERE pid = '{$pid}' ";
 $result = $mysqli -> query($sql);
+$row = $result -> fetch_object(); // $row->cnt
+
 if($result){
-    $data = array('result' => 'ok');
-} else{
-    $data = array('result' => 'fail');
+    $data = array('result' => $row->cnt);
+    echo json_encode($data);
+}else{
+    $sql = "INSERT INTO cart (pid,userid,ssid,options,cnt,total,regdate) VALUES (
+        {$pid},
+        '{$userid}',
+        '{$ssid}',
+        '{$optname}',
+        '{$qty}',
+        '{$total}',
+        now()
+    )";
+    
+    $result = $mysqli -> query($sql);
+    if($result){
+        $data = array('result' => 'ok');
+    } else{
+        $data = array('result' => 'fail');
+    }
+    echo json_encode($data);
 }
-echo json_encode($data);
+
+
+
 
 ?>
