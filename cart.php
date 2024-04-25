@@ -197,15 +197,13 @@ document.addEventListener('DOMContentLoaded', ()=>{
             let price = Number($(this).find('.price span').text());
             let qty =  Number($(this).find('.qty-text').val());
             let total_price = $(this).find('.total_price span');
-            let discount = Number($('#coupon-price').text());
+            total_price.text(price*qty);            
             subtotal = subtotal+(price * qty);
-            total_price.text(price*qty);
-            let grand_total = subtotal+discount;
-            $('#grandtotal').text(grand_total);
-
-        });
+        });        
+        let discount = Number($('#coupon-price').text());
+        let grand_total = subtotal+discount;
         $('#subtotal').text(subtotal);
-
+        $('#grandtotal').text(grand_total);
     }
     calcTotal();
 
